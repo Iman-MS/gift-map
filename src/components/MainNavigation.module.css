@@ -1,0 +1,17 @@
+.navigation {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.icon {
+  margin-left: 1rem;
+  color: var(--color-primary-900);
+  font-size: 2rem;
+}
+
+.button {
+  padding: 1rem;
+  margin: 1rem;
+  color: var(--color-primary-900);
+}
