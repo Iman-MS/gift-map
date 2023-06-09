@@ -9,7 +9,7 @@ import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import RedeemIcon from "@mui/icons-material/Redeem";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
@@ -29,7 +29,7 @@ const SignUpForm = () => {
               backgroundColor: "secondary.main",
             }}
           >
-            <LockOutlinedIcon />
+            <RedeemIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign Up

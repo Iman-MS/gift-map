@@ -5,6 +5,9 @@ import classes from "./MainNavigation.module.css";
 import { Link } from "react-router-dom";
 
 import Button from "@mui/material/Button";
+import MUILink from "@mui/material/Link";
+
+import logo from "../static/logo-transparent-png.png";
 
 const MainNavigation = () => {
   const buttonStyle = {
@@ -16,9 +19,9 @@ const MainNavigation = () => {
   return (
     <div className={classes.nav}>
       <div>
-        <Button component={Link} to="/" sx={buttonStyle}>
-          GiftMap
-        </Button>
+        <MUILink component={Link} to="/" sx={buttonStyle}>
+          <img src={logo} alt="GiftMap Logo" className={classes.logo} />
+        </MUILink>
       </div>
       <div>
         <Button variant="text" component={Link} to="/login" sx={buttonStyle}>
