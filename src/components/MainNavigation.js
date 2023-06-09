@@ -27,7 +27,7 @@ const MainNavigation = () => {
         <Button
           variant="contained"
           component={Link}
-          to="/sign-up"
+          to="/signup"
           sx={buttonStyle}
         >
           Sign Up

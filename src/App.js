@@ -9,8 +9,9 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const theme = createTheme({
   palette: {
-    primary: { main: "#f6ad1b" },
-    secondary: { main: "#242424" },
+    mode: "light",
+    primary: { main: "#731DD8" },
+    secondary: { main: "#0CCA4A" },
   },
 });
 
@@ -21,7 +22,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <HomePage /> },
       { path: "login", element: <LoginPage /> },
-      { path: "sign-up", element: <SignUpPage /> },
+      { path: "signup", element: <SignUpPage /> },
     ],
   },
 ]);

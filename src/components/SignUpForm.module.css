@@ -18,7 +18,7 @@
   margin: 3rem 0rem 2rem;
 }
 
-.signIn__container {
+.signUp__container {
   background: rgb(115, 29, 216);
   background: linear-gradient(
     90deg,
@@ -32,7 +32,7 @@
   justify-content: center;
 }
 
-.signInForm {
+.signUpForm {
   padding: 2rem;
   background: rgba(255, 255, 255, 0.7);
   border-radius: 0.5rem;
@@ -42,7 +42,7 @@
 }
 
 @media screen and (max-width: 960px) {
-  .signInForm {
+  .signUpForm {
     max-width: 325px !important;
     margin-top: 120px !important;
     margin-bottom: 60px !important;
@@ -50,10 +50,10 @@
 }
 
 @media screen and (max-width: 370px) {
-  .SignIn__container {
+  .SignUp__container {
     height: 110vh;
   }
-  .signInForm {
+  .signUpForm {
     max-width: 325px !important;
     margin-top: 130px !important;
     margin-bottom: 60px !important;

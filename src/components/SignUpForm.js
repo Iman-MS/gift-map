@@ -7,8 +7,6 @@ import TextField from "@mui/material/TextField";
 import CircularProgress from "@mui/material/CircularProgress";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -17,12 +15,12 @@ import Container from "@mui/material/Container";
 
 import Copyright from "./Copyright";
 
-import classes from "./LoginForm.module.css";
+import classes from "./SignUpForm.module.css";
 
-const LoginForm = () => {
+const SignUpForm = () => {
   return (
-    <div className={classes.signIn__container}>
-      <Container component="main" maxWidth="xs" className={classes.signInForm}>
+    <div className={classes.signUp__container}>
+      <Container component="main" maxWidth="xs" className={classes.signUpForm}>
         <CssBaseline />
         <div className={classes.paper}>
           <Avatar
@@ -34,9 +32,20 @@ const LoginForm = () => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Sign Up
           </Typography>
           <form className={classes.form}>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="name"
+              label="Name"
+              name="name"
+              autoComplete="name"
+              autoFocus
+            />
             <TextField
               variant="outlined"
               margin="normal"
@@ -46,7 +55,6 @@ const LoginForm = () => {
               label="Email Address"
               name="email"
               autoComplete="email"
-              autoFocus
             />
             <TextField
               variant="outlined"
@@ -59,10 +67,6 @@ const LoginForm = () => {
               id="password"
               autoComplete="current-password"
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
             <Button
               type="submit"
               fullWidth
@@ -70,7 +74,7 @@ const LoginForm = () => {
               color="primary"
               className={classes.submit}
             >
-              Sign In
+              Sign Up
             </Button>
             {/* error */}
             {false && (
@@ -108,10 +112,10 @@ const LoginForm = () => {
                   variant="text"
                   color="primary"
                   component={RouterLink}
-                  to="/signup"
+                  to="/login"
                   sx={{ mt: "1rem" }}
                 >
-                  Don't have an account? Sign Up
+                  Already have an account? Sign In
                 </Button>
               </Grid>
             </Grid>
@@ -125,4 +129,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default SignUpForm;
