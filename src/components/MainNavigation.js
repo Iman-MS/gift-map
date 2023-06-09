@@ -11,7 +11,7 @@ import logo from "../static/logo-transparent-png.png";
 
 const MainNavigation = () => {
   const buttonStyle = {
-    fontSize: "1.2rem",
+    fontSize: "1.1rem",
     margin: "1rem",
     textTransform: "unset !important",
   };
