@@ -13,7 +13,6 @@ const MainNavigation = () => {
   const buttonStyle = {
     fontSize: "1.1rem",
     margin: "1rem",
-    textTransform: "unset !important",
   };
 
   return (

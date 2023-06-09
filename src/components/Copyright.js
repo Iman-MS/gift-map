@@ -1,15 +1,17 @@
 import React from "react";
 
+import { Link } from "react-router-dom";
+
 import Typography from "@mui/material/Typography";
-import Link from "@mui/material/Link";
+import MUILink from "@mui/material/Link";
 
 const Copyright = () => {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
+      <MUILink component={Link} color="inherit" to="/">
         GiftMap
-      </Link>
+      </MUILink>
       {` ${new Date().getFullYear()}`}
       {"."}
     </Typography>

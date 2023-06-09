@@ -8,6 +8,12 @@ import SignUpPage from "./pages/SignUp";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const theme = createTheme({
+  typography: {
+    fontFamily: "poppins, sans-serif",
+    button: {
+      textTransform: "none",
+    },
+  },
   palette: {
     mode: "light",
     primary: { main: "#731DD8" },
