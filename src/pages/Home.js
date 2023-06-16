@@ -1,11 +1,9 @@
 import React from "react";
 
+import LandingContent from "../components/LandingContent";
+
 const HomePage = () => {
-  return (
-    <div style={{ marginTop: "5rem", color: "black" }}>
-      This is the HomePage
-    </div>
-  );
+  return <LandingContent />;
 };
 
 export default HomePage;
