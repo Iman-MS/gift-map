@@ -28,3 +28,26 @@
   display: flex;
   justify-content: center;
 }
+
+@media (max-width: 770px) {
+  .landing_container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .gift {
+    margin-top: 5rem;
+    width: 60%;
+  }
+}
+
+@media screen and (min-width: 770px) and (max-width: 1240px) {
+  .text {
+    margin-right: 1.5rem;
+    width: 50%;
+  }
+  .gift {
+    margin-left: 1rem;
+    width: 50%;
+  }
+}
