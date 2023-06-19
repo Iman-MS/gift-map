@@ -17,7 +17,8 @@ const LandingContent = () => {
       </div>
       <div className={classes.text}>
         <Typography variant="h2" sx={{ fontWeight: "200" }}>
-          Discover Perfect Gifts with GiftMap
+          Discover Perfect Gifts with{" "}
+          <span className={classes.giftmap}>GiftMap</span>
         </Typography>
         <Typography variant="h6" sx={{ fontWeight: "500" }}>
           No more guessing or generic presents. Join us on GiftMap and make

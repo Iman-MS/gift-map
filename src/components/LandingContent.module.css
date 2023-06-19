@@ -29,6 +29,17 @@
   justify-content: center;
 }
 
+.giftmap {
+  background: rgb(117, 0, 255);
+  background: linear-gradient(
+    90deg,
+    rgba(117, 0, 255, 0.4598214285714286) 0%,
+    rgba(60, 0, 133, 1) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 @media (max-width: 770px) {
   .landing_container {
     display: flex;
