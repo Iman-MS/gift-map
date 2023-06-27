@@ -1,0 +1,20 @@
+{
+  "name": "giftmap-backend",
+  "version": "1.0.0",
+  "description": "giftmap backend",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "SET NODE_ENV=production& node server",
+    "dev": "nodemon server"
+  },
+  "author": "Iman Modarres",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
