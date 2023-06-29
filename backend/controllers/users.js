@@ -1,5 +1,7 @@
 import User from "../models/User.js";
 
+import ErrorResponse from "../utils/errorResponse.js";
+
 // @desc   gets all users
 // @route  GET /api/v1/users/
 // @access Private
@@ -26,6 +28,7 @@ export const getUser = async (req, res, next) => {
   try {
     const user = await User.findById(req.params.userId);
 
+    //if it is correctly formatted id but it is not in the database it will result enter this if block(we dont want to send a response with a true success and data being null in this case)
     if (!user) throw new Error();
 
     res.status(200).json({
@@ -33,10 +36,9 @@ export const getUser = async (req, res, next) => {
       data: user,
     });
   } catch (err) {
-    // res.status(400).json({
-    //   success: false,
-    // });
-    next(err);
+    next(
+      new ErrorResponse(`User not found with id of ${req.params.userId}`, 404)
+    );
   }
 };
 
