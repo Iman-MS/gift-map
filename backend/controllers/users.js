@@ -15,9 +15,7 @@ export const getUsers = async (req, res, next) => {
       data: users,
     });
   } catch (err) {
-    res.status(400).json({
-      success: false,
-    });
+    next(err);
   }
 };
 
@@ -29,16 +27,17 @@ export const getUser = async (req, res, next) => {
     const user = await User.findById(req.params.userId);
 
     //if it is correctly formatted id but it is not in the database it will result enter this if block(we dont want to send a response with a true success and data being null in this case)
-    if (!user) throw new Error();
+    if (!user)
+      return next(
+        new ErrorResponse(`User not found with id of ${req.params.userId}`, 404)
+      );
 
     res.status(200).json({
       success: true,
       data: user,
     });
   } catch (err) {
-    next(
-      new ErrorResponse(`User not found with id of ${req.params.userId}`, 404)
-    );
+    next(err);
   }
 };
 
@@ -64,9 +63,7 @@ export const createUser = async (req, res, next) => {
       data: user,
     });
   } catch (err) {
-    res.status(400).json({
-      success: false,
-    });
+    next(err);
   }
 };
 
@@ -81,13 +78,14 @@ export const updateUser = async (req, res, next) => {
       runValidators: true,
     });
 
-    if (!user) throw new Error();
+    if (!user)
+      return next(
+        new ErrorResponse(`User not found with id of ${req.params.userId}`, 404)
+      );
 
     res.status(200).json({ success: true, data: user });
   } catch (err) {
-    res.status(400).json({
-      success: false,
-    });
+    next(err);
   }
 };
 
@@ -98,12 +96,13 @@ export const deleteUser = async (req, res, next) => {
   try {
     const user = await User.findByIdAndDelete(req.params.userId);
 
-    if (!user) throw new Error();
+    if (!user)
+      return next(
+        new ErrorResponse(`User not found with id of ${req.params.userId}`, 404)
+      );
 
     res.status(200).json({ success: true, data: user });
   } catch (err) {
-    res.status(400).json({
-      success: false,
-    });
+    next(err);
   }
 };
