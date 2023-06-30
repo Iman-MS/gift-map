@@ -1,6 +1,13 @@
 import mongoose from "mongoose";
 
+// import slugify from "slugify";
+
 const UserSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: [true, "Please enter your name"],
+  },
+  // slug: String,
   email: {
     type: String,
     required: [true, "Please add a email"],
@@ -17,5 +24,11 @@ const UserSchema = new mongoose.Schema({
     minlength: 6,
   },
 });
+
+// UserSchema.pre("save", function (next) {
+//   // the this keyword here is the documnet that is being saved
+//   this.slug = slugify(this.name, { lower: true });
+//   next();
+// });
 
 export default mongoose.model("User", UserSchema);
