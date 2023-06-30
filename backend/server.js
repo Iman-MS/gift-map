@@ -15,6 +15,7 @@ connectDB();
 
 //Route files
 import users from "./routes/users.js";
+import gifts from "./routes/gifts.js";
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use(logger);
 
 // Mount routers
 app.use("/api/v1/users", users);
+app.use("/api/v1/gifts", gifts);
 
 app.use(errorHandler);
 

@@ -7,7 +7,14 @@ import {
   updateUser,
   deleteUser,
 } from "../controllers/users.js";
+
+// include other resource routers
+import giftsRouter from "./gifts.js";
+
 const router = express.Router();
+
+// re-route into other resource routers
+router.use("/:userId/gifts", giftsRouter);
 
 router.route("/").get(getUsers);
 
