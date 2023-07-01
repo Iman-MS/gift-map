@@ -57,3 +57,21 @@ export const createGift = asyncHandler(async (req, res, next) => {
     data: gift,
   });
 });
+
+// @desc   updates a gift
+// @route  PUT /api/v1/gifts/:giftId
+// @access Private
+export const updateGift = asyncHandler(async (req, res, next) => {
+  const gift = await Gift.findByIdAndUpdate(req.params.giftId, req.body, {
+    new: true,
+    runValidators: true,
+  });
+
+  if (!gift)
+    next(new ErrorResponse(`No gift with the id of ${req.params.giftId}`), 404);
+
+  res.status(200).json({
+    success: true,
+    data: gift,
+  });
+});
