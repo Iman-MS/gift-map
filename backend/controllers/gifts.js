@@ -75,3 +75,20 @@ export const updateGift = asyncHandler(async (req, res, next) => {
     data: gift,
   });
 });
+
+// @desc   deletes a gift
+// @route  DELETE /api/v1/gifts/:giftId
+// @access Private
+export const deleteGift = asyncHandler(async (req, res, next) => {
+  const gift = await Gift.findById(req.params.giftId);
+
+  if (!gift)
+    next(new ErrorResponse(`No gift with the id of ${req.params.giftId}`), 404);
+
+  await gift.deleteOne();
+
+  res.status(200).json({
+    success: true,
+    data: gift,
+  });
+});
