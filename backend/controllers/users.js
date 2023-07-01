@@ -79,12 +79,14 @@ export const updateUser = asyncHandler(async (req, res, next) => {
 // @route  DELETE /api/v1/users/:userId
 // @access Private
 export const deleteUser = asyncHandler(async (req, res, next) => {
-  const user = await User.findByIdAndDelete(req.params.userId);
+  const user = await User.findById(req.params.userId);
 
   if (!user)
     return next(
       new ErrorResponse(`User not found with id of ${req.params.userId}`, 404)
     );
+
+  user.deleteOne();
 
   res.status(200).json({ success: true, data: user });
 });

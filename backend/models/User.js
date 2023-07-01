@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+import Gift from "./Gift.js";
+
 // import slugify from "slugify";
 
 const UserSchema = new mongoose.Schema(
@@ -36,6 +38,18 @@ const UserSchema = new mongoose.Schema(
 //   this.slug = slugify(this.name, { lower: true });
 //   next();
 // });
+
+// Cascade delete gifts when a user is deleted
+UserSchema.pre(
+  "deleteOne",
+  { document: true, query: false },
+  async function (next) {
+    console.log(`Deleting the Gifts of the User ${this._id}`);
+    await Gift.deleteMany({ user: this._id });
+
+    next();
+  }
+);
 
 // this is a reverse populate with virtuals
 UserSchema.virtual("gifts", {
