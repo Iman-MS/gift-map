@@ -21,7 +21,7 @@ export const getUsers = asyncHandler(async (req, res, next) => {
 // @route  GET /api/v1/users/:userId
 // @access Private
 export const getUser = asyncHandler(async (req, res, next) => {
-  const user = await User.findById(req.params.userId);
+  const user = await User.findById(req.params.userId).populate("gifts");
 
   //if it is correctly formatted id but it is not in the database it will result enter this if block(we dont want to send a response with a true success and data being null in this case)
   if (!user)
