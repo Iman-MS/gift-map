@@ -8,13 +8,7 @@ import asyncHandler from "../middleware/async.js";
 // @route  GET /api/v1/users/
 // @access Private
 export const getUsers = asyncHandler(async (req, res, next) => {
-  const users = await User.find().populate("gifts");
-
-  res.status(200).json({
-    success: true,
-    count: users.length,
-    data: users,
-  });
+  res.status(200).json(res.advancedResults);
 });
 
 // @desc   gets a user

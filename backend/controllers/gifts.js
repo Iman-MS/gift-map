@@ -12,18 +12,13 @@ import asyncHandler from "../middleware/async.js";
 // @route  GET /api/v1/:userId/gifts
 // @access Private
 export const getGifts = asyncHandler(async (req, res, next) => {
-  let query;
+  if (req.params.userId) {
+    const gifts = await Gift.find({ user: req.params.userId });
 
-  if (req.params.userId) query = Gift.find({ user: req.params.userId });
-  else
-    query = Gift.find().populate({
-      path: "user",
-      select: "name",
-    });
-
-  const gifts = await query;
-
-  res.status(200).json({ success: true, count: gifts.length, data: gifts });
+    return res
+      .status(200)
+      .json({ success: true, count: gifts.length, data: gifts });
+  } else res.status(200).json(res.advancedResults);
 });
 
 // @desc   gets a single gift
