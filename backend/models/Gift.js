@@ -19,7 +19,7 @@ const GiftSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please enter the link to the gift"],
   },
-  image: {
+  photo: {
     type: String,
   },
   user: {
@@ -31,8 +31,6 @@ const GiftSchema = new mongoose.Schema({
 
 // static method to get average of users gifts prices
 GiftSchema.statics.getAveragePrice = async function (userId) {
-  console.log("Calculating average price...".blue);
-
   const obj = await this.aggregate([
     {
       $match: { userId: this.user },

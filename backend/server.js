@@ -1,5 +1,10 @@
 import express from "express";
 import dotenv from "dotenv";
+import fileUpload from "express-fileupload";
+import path from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+
 import colors from "colors";
 
 import logger from "./middleware/logger.js";
@@ -24,6 +29,14 @@ app.use(express.json());
 
 // using middle ware
 app.use(logger);
+
+// File uploading
+app.use(fileUpload());
+
+// Set static folder
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+app.use(express.static(path.join(__dirname, "public")));
 
 // Mount routers
 app.use("/api/v1/users", users);
