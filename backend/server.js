@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import fileUpload from "express-fileupload";
+import cookieParser from "cookie-parser";
 import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
@@ -27,6 +28,9 @@ const app = express();
 
 // body parser
 app.use(express.json());
+
+// Cookie parser
+app.use(cookieParser());
 
 // using middle ware
 app.use(logger);

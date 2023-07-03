@@ -43,8 +43,6 @@ GiftSchema.statics.getAveragePrice = async function (userId) {
     },
   ]);
 
-  console.log(obj);
-
   try {
     await User.findByIdAndUpdate(userId, {
       averagePrice: obj[0] ? Math.trunc(obj[0].averagePrice) : 0,

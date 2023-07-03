@@ -12,6 +12,8 @@ import Gift from "../models/Gift.js";
 
 import advancedResults from "../middleware/advancedResults.js";
 
+import { protect } from "../middleware/auth.js";
+
 // the mergeParams is because we are merging the url params(we are merging a param in the users to here)
 const router = express.Router({ mergeParams: true });
 
@@ -22,8 +24,12 @@ router.route("/").get(
   }),
   getGifts
 );
-router.route("/:giftId").get(getGift).put(updateGift).delete(deleteGift);
-router.route("/create").post(createGift);
-router.route("/:giftId/photo").put(giftPhotoUpload);
+router
+  .route("/:giftId")
+  .get(getGift)
+  .put(protect, updateGift)
+  .delete(protect, deleteGift);
+router.route("/create").post(protect, createGift);
+router.route("/:giftId/photo").put(protect, giftPhotoUpload);
 
 export default router;
