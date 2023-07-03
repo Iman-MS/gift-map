@@ -29,16 +29,6 @@ export const getUser = asyncHandler(async (req, res, next) => {
   });
 });
 
-// @desc   gets a email and password and if a user with this details was found it will respond the user otherwise responds in error
-// @route  POST /api/v1/users/login
-// @access Public
-export const validateUser = (req, res, next) => {
-  res.status(200).json({
-    success: true,
-    msg: `gets a email and password and if a user with this details was found it will respond the user otherwise responds in error`,
-  });
-};
-
 // @desc   create a new user
 // @route  POST /api/v1/users/
 // @access Public

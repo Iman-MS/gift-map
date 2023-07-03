@@ -2,7 +2,6 @@ import express from "express";
 import {
   getUsers,
   getUser,
-  validateUser,
   createUser,
   updateUser,
   deleteUser,
@@ -21,8 +20,6 @@ const router = express.Router();
 router.use("/:userId/gifts", giftsRouter);
 
 router.route("/").get(advancedResults(User, "gifts"), getUsers);
-
-router.route("/login").post(validateUser);
 
 router.route("/create").post(createUser);
 
