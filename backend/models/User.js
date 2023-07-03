@@ -2,6 +2,9 @@ import mongoose from "mongoose";
 
 import Gift from "./Gift.js";
 
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+
 // import slugify from "slugify";
 
 const UserSchema = new mongoose.Schema(
@@ -66,5 +69,21 @@ UserSchema.virtual("gifts", {
   foreignField: "user",
   justOne: false,
 });
+
+// Encrypt password using bcrypt
+UserSchema.pre("save", async function (next) {
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+
+  next();
+});
+
+// statics are called on the model but the methods are called on the instances of a model
+// Sign JWT and return
+UserSchema.methods.getSignedJwtToken = function () {
+  return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRE,
+  });
+};
 
 export default mongoose.model("User", UserSchema);
