@@ -17,13 +17,17 @@ const LandingContent = () => {
       </div>
       <div className={classes.text}>
         <Typography variant="h2" sx={{ fontWeight: "200" }}>
-          Discover Perfect Gifts with{" "}
-          <span className={classes.giftmap}>GiftMap</span>
+          Discover <br /> Perfect{" "}
+          <span className={classes["gift-text"]}>Gifts</span>
         </Typography>
-        <Typography variant="h6" sx={{ fontWeight: "500" }}>
-          No more guessing or generic presents. Join us on GiftMap and make
-          gift-giving a delightful and personalized experience for everyone
-          involved.
+        <Typography
+          variant="h6"
+          sx={{ fontWeight: "500", fontSize: "1.1rem" }}
+          color="text.secondary"
+        >
+          Wave Goodbye to the Guessing Game in Gift Shopping,
+          <br />
+          Say Hello to Heartwarming Personalized Gifts
         </Typography>
         <div className={classes.btn}>
           <Button
