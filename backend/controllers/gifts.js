@@ -39,18 +39,10 @@ export const getGift = asyncHandler(async (req, res, next) => {
 });
 
 // @desc   creates a gift
-// @route  POST /api/v1/users/:userId/gifts/create
+// @route  POST /api/v1/gifts/create
 // @access Private
 export const createGift = asyncHandler(async (req, res, next) => {
-  req.body.user = req.params.userId;
-
-  const user = await User.findById(req.params.userId);
-
-  if (!user)
-    return next(
-      new ErrorResponse(`No user with the id of ${req.params.userId}`),
-      404
-    );
+  req.body.user = req.user.id;
 
   const gift = await Gift.create(req.body);
 
