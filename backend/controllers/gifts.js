@@ -56,16 +56,27 @@ export const createGift = asyncHandler(async (req, res, next) => {
 // @route  PUT /api/v1/gifts/:giftId
 // @access Private
 export const updateGift = asyncHandler(async (req, res, next) => {
-  const gift = await Gift.findByIdAndUpdate(req.params.giftId, req.body, {
-    new: true,
-    runValidators: true,
-  });
+  let gift = await Gift.findById(req.params.giftId);
 
   if (!gift)
     return next(
       new ErrorResponse(`No gift with the id of ${req.params.giftId}`),
       404
     );
+
+  // Make sure user is the gift owner
+  if (gift.user.toString() !== req.user.id)
+    return next(
+      new ErrorResponse(
+        `User ${req.user.id} is not authorized to update this gift`
+      ),
+      401
+    );
+
+  gift = await Gift.findById(req.params.giftId, req.body, {
+    new: true,
+    runValidators: true,
+  });
 
   res.status(200).json({
     success: true,
@@ -83,6 +94,15 @@ export const deleteGift = asyncHandler(async (req, res, next) => {
     return next(
       new ErrorResponse(`No gift with the id of ${req.params.giftId}`),
       404
+    );
+
+  // Make sure user is the gift owner
+  if (gift.user.toString() !== req.user.id)
+    return next(
+      new ErrorResponse(
+        `User ${req.user.id} is not authorized to delete this gift`
+      ),
+      401
     );
 
   await gift.deleteOne();
@@ -104,6 +124,16 @@ export const giftPhotoUpload = asyncHandler(async (req, res, next) => {
       new ErrorResponse(`No gift with the id of ${req.params.giftId}`),
       404
     );
+
+  // Make sure user is the gift owner
+  if (gift.user.toString() !== req.user.id)
+    return next(
+      new ErrorResponse(
+        `User ${req.user.id} is not authorized to upload photo for this gift`
+      ),
+      401
+    );
+
   if (!req.files) return next(new ErrorResponse(`Please upload a file`), 400);
 
   const file = req.files.file;
