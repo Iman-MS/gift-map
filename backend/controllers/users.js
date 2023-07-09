@@ -5,17 +5,17 @@ import ErrorResponse from "../utils/errorResponse.js";
 import asyncHandler from "../middleware/async.js";
 
 // @desc   gets all users
-// @route  GET /api/v1/users/
+// @route  GET /api/v1/users/all
 // @access Private
 export const getUsers = asyncHandler(async (req, res, next) => {
   res.status(200).json(res.advancedResults);
 });
 
 // @desc   gets a user
-// @route  GET /api/v1/users/:userId
+// @route  GET /api/v1/users/
 // @access Private
 export const getUser = asyncHandler(async (req, res, next) => {
-  const user = await User.findById(req.params.userId).populate("gifts");
+  const user = await User.findById(req.user.id).populate("gifts");
 
   //if it is correctly formatted id but it is not in the database it will result enter this if block(we dont want to send a response with a true success and data being null in this case)
   if (!user)
@@ -42,10 +42,15 @@ export const createUser = asyncHandler(async (req, res, next) => {
 });
 
 // @desc   update a user
-// @route  PUT /api/v1/users/:userId
+// @route  PUT /api/v1/users/
 // @access Private
 export const updateUser = asyncHandler(async (req, res, next) => {
-  const user = await User.findByIdAndUpdate(req.params.userId, req.body, {
+  const fieldsToUpdate = {
+    name: req.body.name,
+    email: req.body.email,
+  };
+
+  const user = await User.findByIdAndUpdate(req.user.id, fieldsToUpdate, {
     // if the new key is set to true we will get back the object after update
     new: true,
     runValidators: true,
@@ -60,10 +65,10 @@ export const updateUser = asyncHandler(async (req, res, next) => {
 });
 
 // @desc   delete a user
-// @route  DELETE /api/v1/users/:userId
+// @route  DELETE /api/v1/users/
 // @access Private
 export const deleteUser = asyncHandler(async (req, res, next) => {
-  const user = await User.findById(req.params.userId);
+  const user = await User.findById(req.user.id);
 
   if (!user)
     return next(

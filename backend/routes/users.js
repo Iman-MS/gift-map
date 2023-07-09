@@ -1,4 +1,5 @@
 import express from "express";
+
 import {
   getUsers,
   getUser,
@@ -6,6 +7,7 @@ import {
   updateUser,
   deleteUser,
 } from "../controllers/users.js";
+import { protect } from "../middleware/auth.js";
 
 import advancedResults from "../middleware/advancedResults.js";
 
@@ -19,10 +21,14 @@ const router = express.Router();
 // // re-route into other resource routers
 // router.use("/:userId/gifts", giftsRouter);
 
-router.route("/").get(advancedResults(User, "gifts"), getUsers);
+router.route("/all").get(advancedResults(User, "gifts"), getUsers);
 
 router.route("/create").post(createUser);
 
-router.route("/:userId").put(updateUser).delete(deleteUser).get(getUser);
+router
+  .route("/")
+  .put(protect, updateUser)
+  .delete(protect, deleteUser)
+  .get(protect, getUser);
 
 export default router;
