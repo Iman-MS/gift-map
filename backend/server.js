@@ -5,6 +5,12 @@ import cookieParser from "cookie-parser";
 import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
+import mongoSanitize from "express-mongo-sanitize";
+import helmet from "helmet";
+import xss from "xss-clean";
+import rateLimit from "express-rate-limit";
+import hpp from "hpp";
+import cors from "cors";
 
 import colors from "colors";
 
@@ -37,6 +43,28 @@ app.use(logger);
 
 // File uploading
 app.use(fileUpload());
+
+// Sanitize data
+app.use(mongoSanitize());
+
+// Set security headers
+app.use(helmet());
+
+// Prevent cross site scripting attacks
+app.use(xss());
+
+// Rate limiting
+const limiter = rateLimit({
+  windowMs: 10 * 60 * 1000, // 10mins
+  max: 100,
+});
+app.use(limiter);
+
+// Prevent http param pollution
+app.use(hpp());
+
+// Enable cors
+app.use(cors());
 
 // Set static folder
 const __filename = fileURLToPath(import.meta.url);
