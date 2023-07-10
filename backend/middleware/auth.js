@@ -17,6 +17,7 @@ export const protect = asyncHandler(async (req, res, next) => {
   }
   // Set token from cookie
   if (req.cookies.token) token = req.cookies.token;
+  console.log(req.cookies);
 
   // Make sure token exists
   if (!token)

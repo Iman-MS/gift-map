@@ -2,6 +2,7 @@ import express from "express";
 import {
   getGifts,
   getGift,
+  getAllGifts,
   createGift,
   updateGift,
   deleteGift,
@@ -17,12 +18,14 @@ import { protect } from "../middleware/auth.js";
 // the mergeParams is because we are merging the url params(we are merging a param in the users to here)
 const router = express.Router({ mergeParams: true });
 
-router.route("/").get(
+router.route("/").get(protect, getGifts);
+
+router.route("/all").get(
   advancedResults(Gift, {
     path: "user",
     select: "name",
   }),
-  getGifts
+  getAllGifts
 );
 router
   .route("/:giftId")

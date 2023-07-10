@@ -7,11 +7,20 @@ import ErrorResponse from "../utils/errorResponse.js";
 
 import asyncHandler from "../middleware/async.js";
 
-// @desc   gets all gifts
+// @desc   gets all gifts for the logged in user
 // @route  GET /api/v1/gifts/
-// @route  GET /api/v1/:userId/gifts
 // @access Private
 export const getGifts = asyncHandler(async (req, res, next) => {
+  const gifts = await Gift.find({ user: req.user.id });
+
+  res.status(200).json({ success: true, data: gifts });
+});
+
+// @desc   gets all gifts
+// @route  GET /api/v1/gifts/all
+// @route  GET /api/v1/:userId/gifts
+// @access Private
+export const getAllGifts = asyncHandler(async (req, res, next) => {
   if (req.params.userId) {
     const gifts = await Gift.find({ user: req.params.userId });
 
