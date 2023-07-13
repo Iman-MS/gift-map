@@ -1,17 +1,11 @@
 import React, { useState, useEffect } from "react";
 
+import { useLoaderData } from "react-router-dom";
+
 const ProfileContent = () => {
   const [gifts, setGifts] = useState(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch("http://localhost:5000/api/v1/gifts");
-      const responseData = await response.json();
-      setGifts(responseData.data);
-    };
-
-    fetchData();
-  }, []);
+  setGifts(useLoaderData());
 
   console.log(gifts);
 

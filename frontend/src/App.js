@@ -4,7 +4,7 @@ import RootLayoutPage from "./pages/RootLayout";
 import HomePage from "./pages/Home";
 import LoginPage from "./pages/login";
 import SignUpPage from "./pages/SignUp";
-import ProfilePage from "./pages/Profile";
+import ProfilePage, { loader } from "./pages/Profile";
 import ErrorPage from "./pages/Error";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -37,6 +37,7 @@ const router = createBrowserRouter([
   {
     path: "/profile",
     element: <ProfilePage />,
+    loader: loader,
   },
 ]);
 
