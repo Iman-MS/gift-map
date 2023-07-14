@@ -3,10 +3,9 @@ import React, { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 
 const ProfileContent = () => {
-  const [gifts, setGifts] = useState(null);
+  // const [gifts, setGifts] = useState(null);
 
-  setGifts(useLoaderData());
-
+  const gifts = useLoaderData();
   console.log(gifts);
 
   return (

@@ -13,7 +13,11 @@ import asyncHandler from "../middleware/async.js";
 export const getGifts = asyncHandler(async (req, res, next) => {
   const gifts = await Gift.find({ user: req.user.id });
 
-  res.status(200).json({ success: true, data: gifts });
+  res
+    .status(200)
+    .set("Access-Control-Allow-Credentials", "true")
+    .set("Access-Control-Allow-Origin", process.env.FRONT_END_ORIGIN)
+    .json({ success: true, data: gifts });
 });
 
 // @desc   gets all gifts

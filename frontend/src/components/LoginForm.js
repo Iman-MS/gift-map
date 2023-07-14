@@ -2,6 +2,8 @@ import { useState } from "react";
 
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 
+import { useCookies } from "react-cookie";
+
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -30,6 +32,8 @@ const LoginForm = () => {
 
   const navigate = useNavigate();
 
+  const [cookies, setCookie] = useCookies();
+
   const emailChangeHandler = (event) => {
     setEmail(event.target.value);
   };
@@ -56,6 +60,7 @@ const LoginForm = () => {
 
     if (!responseData.success) setIsError(true);
     else {
+      setCookie("token", responseData.token, { path: "/" });
       navigate("/profile");
     }
 
