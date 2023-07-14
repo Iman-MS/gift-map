@@ -9,9 +9,7 @@ const ProfilePage = () => {
 export default ProfilePage;
 
 export const loader = async () => {
-  const response = await fetch(`/api/v1/gifts`, {
-    credentials: "include",
-  });
+  const response = await fetch(`/api/v1/gifts`);
   const responseData = await response.json();
 
   return responseData.data;
