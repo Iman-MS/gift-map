@@ -148,6 +148,8 @@ const sendTokenResponse = (user, statusCode, res) => {
     expire: new Date(
       Date.now + process.env.JWT_COOKIE_EXPIRE * 1000 * 60 * 60 * 24
     ),
+    // withCredentials: true,
+    // httpOnly: false,
     httpOnly: true,
   };
 

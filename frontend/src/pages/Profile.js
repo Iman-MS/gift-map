@@ -3,8 +3,7 @@ import React from "react";
 import ProfileContent from "../components/ProfileContent";
 
 const ProfilePage = () => {
-  // return <ProfileContent />;
-  return <div>this is the profile page</div>;
+  return <ProfileContent />;
 };
 
 export default ProfilePage;
