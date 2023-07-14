@@ -1,4 +1,6 @@
-import { Link as RouterLink } from "react-router-dom";
+import { useState } from "react";
+
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -20,6 +22,46 @@ import Copyright from "./Copyright";
 import classes from "./LoginForm.module.css";
 
 const LoginForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+
+  const emailChangeHandler = (event) => {
+    setEmail(event.target.value);
+  };
+  const passwordChangeHandler = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const submitHandler = async (event) => {
+    event.preventDefault();
+
+    setIsLoading(true);
+
+    const response = await fetch("http://localhost:5000/api/v1/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    });
+    const responseData = await response.json();
+
+    if (!responseData.success) setIsError(true);
+    else {
+      navigate("/profile");
+    }
+
+    setIsLoading(false);
+  };
+
   return (
     <div className={classes.signIn__container}>
       <Container component="main" maxWidth="xs" className={classes.signInForm}>
@@ -36,8 +78,9 @@ const LoginForm = () => {
           <Typography component="h1" variant="h5">
             Sign In
           </Typography>
-          <form className={classes.form}>
+          <form className={classes.form} onSubmit={submitHandler}>
             <TextField
+              onChange={emailChangeHandler}
               variant="outlined"
               margin="normal"
               required
@@ -49,6 +92,7 @@ const LoginForm = () => {
               autoFocus
             />
             <TextField
+              onChange={passwordChangeHandler}
               variant="outlined"
               margin="normal"
               required
@@ -73,7 +117,7 @@ const LoginForm = () => {
               Sign In
             </Button>
             {/* error */}
-            {false && (
+            {isError && (
               <Grid
                 container
                 direction="column"
@@ -87,12 +131,12 @@ const LoginForm = () => {
                   style={{ backgroundColor: "#ff000012" }}
                 >
                   <AlertTitle>Error</AlertTitle>
-                  {/* {loginError} */}
+                  Invalid credentials
                 </Alert>
               </Grid>
             )}
             {/* loading */}
-            {false && (
+            {isLoading && (
               <Grid
                 container
                 direction="column"
