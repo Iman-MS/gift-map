@@ -1,12 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { useLoaderData } from "react-router-dom";
 
 const ProfileContent = () => {
-  // const [gifts, setGifts] = useState(null);
-
-  const gifts = useLoaderData();
-  console.log(gifts);
+  const [gifts, setGifts] = useState(useLoaderData());
 
   return (
     <>

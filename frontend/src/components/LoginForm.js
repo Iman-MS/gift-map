@@ -1,8 +1,6 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 
 import { Link as RouterLink, useNavigate } from "react-router-dom";
-
-import { useCookies } from "react-cookie";
 
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -19,6 +17,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
+import AuthContext from "../contexts/auth-context";
+
 import Copyright from "./Copyright";
 
 import classes from "./LoginForm.module.css";
@@ -32,7 +32,7 @@ const LoginForm = () => {
 
   const navigate = useNavigate();
 
-  const [cookies, setCookie] = useCookies();
+  const authCtx = useContext(AuthContext);
 
   const emailChangeHandler = (event) => {
     setEmail(event.target.value);
@@ -60,7 +60,7 @@ const LoginForm = () => {
 
     if (!responseData.success) setIsError(true);
     else {
-      setCookie("token", responseData.token, { path: "/" });
+      authCtx.onLogin(responseData.token);
       navigate("/profile");
     }
 
