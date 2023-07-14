@@ -1,9 +1,15 @@
 import React from "react";
 
+import ProfileNavigaion from "../components/ProfileNavigation";
 import ProfileContent from "../components/ProfileContent";
 
 const ProfilePage = () => {
-  return <ProfileContent />;
+  return (
+    <>
+      <ProfileNavigaion />
+      {/* <ProfileContent /> */}
+    </>
+  );
 };
 
 export default ProfilePage;
