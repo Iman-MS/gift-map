@@ -30,6 +30,10 @@ export const protect = asyncHandler(async (req, res, next) => {
     console.log(decoded);
 
     req.user = await User.findById(decoded.id);
+    //setting the response headers in the protect, so that we dont have to set it in every route that uses protect
+    res
+      .set("Access-Control-Allow-Credentials", "true")
+      .set("Access-Control-Allow-Origin", process.env.FRONT_END_ORIGIN);
 
     next();
   } catch (err) {
