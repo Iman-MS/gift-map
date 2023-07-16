@@ -52,7 +52,7 @@ const ProfileNavigaion = () => {
 
   const profileClickHandler = () => {
     navigate("/profile");
-    setAnchorEl(null);
+    handleClose();
   };
 
   const logoutClickHandler = () => {
