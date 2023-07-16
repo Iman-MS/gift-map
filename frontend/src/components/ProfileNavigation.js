@@ -1,6 +1,4 @@
-import React from "react";
-
-import classes from "./ProfileNavigation.module.css";
+import React, { useContext } from "react";
 
 import { Link } from "react-router-dom";
 
@@ -10,11 +8,23 @@ import Avatar from "@mui/material/Avatar";
 
 import logo from "../static/logo-transparent-png.png";
 
+import AuthContext from "../contexts/auth-context";
+
+import classes from "./ProfileNavigation.module.css";
+
 const ProfileNavigaion = () => {
+  const authCtx = useContext(AuthContext);
+
   const buttonStyle = {
     fontSize: "1.1rem",
     margin: "1rem",
   };
+
+  const nameInitials = authCtx.user.name
+    .split(" ")
+    .map((word) => word[0])
+    .slice(0, 2)
+    .join("");
 
   return (
     <div className={classes.nav}>
@@ -33,7 +43,7 @@ const ProfileNavigaion = () => {
         />
       </div>
       <div className={classes["profile-icon"]}>
-        <Avatar color="primary"></Avatar>
+        <Avatar color="primary">{nameInitials}</Avatar>
       </div>
     </div>
   );

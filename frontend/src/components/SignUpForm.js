@@ -93,7 +93,6 @@ const SignUpForm = () => {
           }
         );
         const data = await response.json();
-        console.log(data);
 
         if (!response.ok) {
           setIsError(true);
