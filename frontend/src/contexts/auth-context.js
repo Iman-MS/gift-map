@@ -6,13 +6,14 @@ const AuthContext = React.createContext({
   isLoggedIn: false,
   user: null,
   onLogin: () => {},
+  onLogout: () => {},
 });
 
 export const AuthContextProvider = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
 
-  const [cookie, setCookie] = useCookies();
+  const [cookie, setCookie, removeCookie] = useCookies();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -35,12 +36,19 @@ export const AuthContextProvider = (props) => {
     // setUser(responseData.data);
   };
 
+  const logoutHandler = () => {
+    console.log(cookie);
+
+    removeCookie("token");
+  };
+
   return (
     <AuthContext.Provider
       value={{
         isLoggedIn: isLoggedIn,
         user,
         onLogin: loginHandler,
+        onLogout: logoutHandler,
       }}
     >
       {props.children}
