@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { useCookies } from "react-cookie";
 
@@ -12,16 +12,27 @@ export const AuthContextProvider = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
 
-  const [, setCookie] = useCookies();
+  const [cookie, setCookie] = useCookies();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (cookie.token) {
+        const response = await fetch("/api/v1/auth/me");
+        const responseData = await response.json();
+        setUser(responseData.data);
+      }
+    };
+    fetchUser();
+  }, [cookie]);
 
   const loginHandler = async (token) => {
     setIsLoggedIn(true);
 
     setCookie("token", token, { path: "/" });
 
-    const response = await fetch("/api/v1/auth/me");
-    const responseData = await response.json();
-    setUser(responseData.data);
+    // const response = await fetch("/api/v1/auth/me");
+    // const responseData = await response.json();
+    // setUser(responseData.data);
   };
 
   return (

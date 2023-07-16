@@ -20,11 +20,15 @@ const ProfileNavigaion = () => {
     margin: "1rem",
   };
 
-  const nameInitials = authCtx.user.name
-    .split(" ")
-    .map((word) => word[0])
-    .slice(0, 2)
-    .join("");
+  // finding the name initials for the avatar
+  let nameInitials;
+  if (authCtx.user) {
+    nameInitials = authCtx.user.name
+      .split(" ")
+      .map((word) => word[0])
+      .slice(0, 2)
+      .join("");
+  }
 
   return (
     <div className={classes.nav}>
