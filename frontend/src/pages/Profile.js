@@ -1,13 +1,13 @@
 import React from "react";
 
 import ProfileNavigaion from "../components/ProfileNavigation";
-// import ProfileContent from "../components/ProfileContent";
+import ProfileContent from "../components/ProfileContent";
 
 const ProfilePage = () => {
   return (
     <>
       <ProfileNavigaion />
-      {/* <ProfileContent /> */}
+      <ProfileContent />
     </>
   );
 };
