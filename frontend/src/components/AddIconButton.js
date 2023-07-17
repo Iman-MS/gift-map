@@ -7,7 +7,7 @@ import AddIcon from "@mui/icons-material/Add";
 
 import AddGiftForm from "./AddGiftForm";
 
-const AddIconButton = () => {
+const AddIconButton = ({ setGifts }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const addClickHandler = () => {
@@ -30,7 +30,7 @@ const AddIconButton = () => {
         aria-describedby="modal-modal-description"
       >
         <div>
-          <AddGiftForm />
+          <AddGiftForm setGifts={setGifts} />
         </div>
       </Modal>
     </>

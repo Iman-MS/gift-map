@@ -21,7 +21,7 @@ const ProfileContent = () => {
     <div className={classes.container}>
       <div className={classes.content}>
         <div className={classes["add-icon"]}>
-          <AddIconButton />
+          <AddIconButton setGifts={setGifts} />
         </div>
         {gifts && (
           <ul className={classes.list}>

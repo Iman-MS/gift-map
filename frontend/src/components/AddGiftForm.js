@@ -15,7 +15,7 @@ import Container from "@mui/material/Container";
 
 import classes from "./AddGiftForm.module.css";
 
-const AddGiftForm = () => {
+const AddGiftForm = ({ setGifts }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -39,9 +39,26 @@ const AddGiftForm = () => {
   const formSubmitHandler = async (event) => {
     event.preventDefault();
 
-    if (title.length === 0 || !Number(price) || link.length === 0) {
-      console.log("in");
+    if (!Number(price)) {
+      setIsError(true);
+      return;
     }
+
+    const response = await fetch("/api/v1/gifts/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title,
+        description,
+        price,
+        link,
+      }),
+    });
+    const responseData = await response.json();
+    const addedGift = responseData.data;
+    setGifts((gifts) => [...gifts, addedGift]);
   };
 
   return (
@@ -132,7 +149,7 @@ const AddGiftForm = () => {
                     style={{ backgroundColor: "#ff000012" }}
                   >
                     <AlertTitle>Error</AlertTitle>
-                    Please fill the required fields
+                    Please enter a number for the price
                   </Alert>
                 </Grid>
               )}
