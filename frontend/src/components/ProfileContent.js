@@ -55,7 +55,7 @@ const ProfileContent = () => {
                   <Button size="small" color="primary">
                     <EditIcon />
                   </Button>
-                  <Button size="small" color="primary">
+                  <Button size="small" color="error">
                     <DeleteIcon />
                   </Button>
                 </CardActions>

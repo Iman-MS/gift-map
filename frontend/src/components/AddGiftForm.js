@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -15,28 +15,39 @@ import Container from "@mui/material/Container";
 
 import classes from "./AddGiftForm.module.css";
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  // width: 400,
-  bgcolor: "background.paper",
-  border: "1px solid #000",
-  boxShadow: 24,
-  p: 4,
-  borderRadius: "2rem",
-};
-
 const AddGiftForm = () => {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [link, setLink] = useState("");
+
+  const [isError, setIsError] = useState(false);
+
+  const titleChangeHandler = (event) => {
+    setTitle(event.target.value);
+  };
+  const descriptionChangeHandler = (event) => {
+    setDescription(event.target.value);
+  };
+  const priceChangeHandler = (event) => {
+    setPrice(event.target.value);
+  };
+  const linkChangeHandler = (event) => {
+    setLink(event.target.value);
+  };
+
+  const formSubmitHandler = async (event) => {
+    event.preventDefault();
+
+    if (title.length === 0 || !Number(price) || link.length === 0) {
+      console.log("in");
+    }
+  };
+
   return (
     <>
       <Box className={classes.container}>
-        <Container
-          component="main"
-          maxWidth="xs"
-          className={classes["form-container"]}
-        >
+        <Container component="main" maxWidth="xs">
           <CssBaseline />
           <div className={classes.form}>
             <Avatar
@@ -50,8 +61,9 @@ const AddGiftForm = () => {
             <Typography component="h1" variant="h5" color="primary">
               New Gift
             </Typography>
-            <form>
+            <form onSubmit={formSubmitHandler}>
               <TextField
+                onChange={titleChangeHandler}
                 variant="outlined"
                 margin="normal"
                 required
@@ -62,9 +74,9 @@ const AddGiftForm = () => {
                 autoFocus
               />
               <TextField
+                onChange={descriptionChangeHandler}
                 variant="outlined"
                 margin="normal"
-                required
                 fullWidth
                 name="description"
                 label="Description"
@@ -72,6 +84,7 @@ const AddGiftForm = () => {
                 id="description"
               />
               <TextField
+                onChange={priceChangeHandler}
                 variant="outlined"
                 margin="normal"
                 required
@@ -82,6 +95,7 @@ const AddGiftForm = () => {
                 id="price"
               />
               <TextField
+                onChange={linkChangeHandler}
                 variant="outlined"
                 margin="normal"
                 required
@@ -97,12 +111,14 @@ const AddGiftForm = () => {
                 fullWidth
                 variant="contained"
                 color="primary"
-                className={classes.submit}
+                sx={{
+                  margin: "2rem 0rem 2rem",
+                }}
               >
                 Add Gift!
               </Button>
               {/* error */}
-              {false && (
+              {isError && (
                 <Grid
                   container
                   direction="column"
@@ -116,7 +132,7 @@ const AddGiftForm = () => {
                     style={{ backgroundColor: "#ff000012" }}
                   >
                     <AlertTitle>Error</AlertTitle>
-                    Invalid credentials
+                    Please fill the required fields
                   </Alert>
                 </Grid>
               )}

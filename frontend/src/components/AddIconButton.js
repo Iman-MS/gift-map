@@ -29,7 +29,9 @@ const AddIconButton = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <AddGiftForm />
+        <div>
+          <AddGiftForm />
+        </div>
       </Modal>
     </>
   );

@@ -11,18 +11,11 @@
   padding: 3rem 3rem;
 }
 
-.form-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .form {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 20rem;
 }
 
 .submit {

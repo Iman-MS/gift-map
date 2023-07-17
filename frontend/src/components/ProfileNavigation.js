@@ -72,9 +72,9 @@ const ProfileNavigaion = () => {
         <TextField
           id="standard-basic"
           label="search users"
-          variant="standard"
+          variant="outlined"
           color="primary"
-          sx={{ width: "20rem" }}
+          sx={{ width: "20rem", mt: "0.5rem" }}
         />
       </div>
       <div className={classes["profile-icon"]}>
@@ -125,9 +125,6 @@ const ProfileNavigaion = () => {
       >
         <MenuItem onClick={profileClickHandler}>
           <Avatar /> Profile
-        </MenuItem>
-        <MenuItem>
-          <Avatar /> My account
         </MenuItem>
         <Divider />
         <MenuItem>
