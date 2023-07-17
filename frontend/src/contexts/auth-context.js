@@ -37,8 +37,8 @@ export const AuthContextProvider = (props) => {
   };
 
   const logoutHandler = () => {
-    console.log(cookie);
-
+    setIsLoggedIn(false);
+    setUser(null);
     removeCookie("token");
   };
 
