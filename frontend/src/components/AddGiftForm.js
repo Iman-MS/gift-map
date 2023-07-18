@@ -15,7 +15,7 @@ import Container from "@mui/material/Container";
 
 import classes from "./AddGiftForm.module.css";
 
-const AddGiftForm = ({ setGifts }) => {
+const AddGiftForm = ({ setGifts, closeModalHandler }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -59,6 +59,8 @@ const AddGiftForm = ({ setGifts }) => {
     const responseData = await response.json();
     const addedGift = responseData.data;
     setGifts((gifts) => [...gifts, addedGift]);
+
+    closeModalHandler();
   };
 
   return (

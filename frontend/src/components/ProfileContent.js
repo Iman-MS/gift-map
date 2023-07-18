@@ -12,6 +12,8 @@ import EditIcon from "@mui/icons-material/Edit";
 
 import AddIconButton from "./AddIconButton";
 
+import giftImage from "../static/giftListPlaceholder.png";
+
 import classes from "./ProfileContent.module.css";
 
 const ProfileContent = () => {
@@ -36,7 +38,7 @@ const ProfileContent = () => {
                     <CardMedia
                       component="img"
                       height="140"
-                      image="/static/images/cards/contemplative-reptile.jpg"
+                      src={giftImage}
                       alt="gift image"
                     />
                   )}
@@ -52,6 +54,9 @@ const ProfileContent = () => {
                   </CardContent>
                 </CardActionArea>
                 <CardActions>
+                  <Typography
+                    sx={{ mr: "1rem" }}
+                  >{`$${gift.price}`}</Typography>
                   <Button size="small" color="primary">
                     <EditIcon />
                   </Button>

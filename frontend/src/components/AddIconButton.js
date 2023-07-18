@@ -30,7 +30,10 @@ const AddIconButton = ({ setGifts }) => {
         aria-describedby="modal-modal-description"
       >
         <div>
-          <AddGiftForm setGifts={setGifts} />
+          <AddGiftForm
+            setGifts={setGifts}
+            closeModalHandler={closeModalHandler}
+          />
         </div>
       </Modal>
     </>
