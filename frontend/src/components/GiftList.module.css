@@ -1,4 +1,17 @@
 .gift {
   display: flex;
   margin: 1rem;
+  justify-content: space-between;
+}
+
+.gift-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gift-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

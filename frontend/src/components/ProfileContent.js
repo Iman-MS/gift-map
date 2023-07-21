@@ -18,7 +18,7 @@ const ProfileContent = () => {
         </div>
         {gifts && (
           <ul className={classes.list}>
-            <GiftList gifts={gifts} />
+            <GiftList gifts={gifts} setGifts={setGifts} />
           </ul>
         )}
       </div>
