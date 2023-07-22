@@ -159,7 +159,7 @@ const AddGiftForm = ({
                   margin: "2rem 0rem 2rem",
                 }}
               >
-                {`${giftID ? "Edit" : "Add"} Gift`}
+                {giftID ? "Save" : "Add"}
               </Button>
               {/* error */}
               {isError && (
