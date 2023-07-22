@@ -82,7 +82,7 @@ export const updateGift = asyncHandler(async (req, res, next) => {
       401
     );
 
-  gift = await Gift.findById(req.params.giftId, req.body, {
+  gift = await Gift.findOneAndUpdate({ _id: req.params.giftId }, req.body, {
     new: true,
     runValidators: true,
   });

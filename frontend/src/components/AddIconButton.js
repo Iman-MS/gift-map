@@ -5,17 +5,17 @@ import Modal from "@mui/material/Modal";
 
 import AddIcon from "@mui/icons-material/Add";
 
-import AddGiftForm from "./AddGiftForm";
+import GiftForm from "./GiftForm";
 
 const AddIconButton = ({ setGifts }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const addClickHandler = () => {
-    setIsOpen(true);
+    setIsModalOpen(true);
   };
 
   const closeModalHandler = () => {
-    setIsOpen(false);
+    setIsModalOpen(false);
   };
 
   return (
@@ -25,14 +25,15 @@ const AddIconButton = ({ setGifts }) => {
       </Button>
       <Modal
         onClose={closeModalHandler}
-        open={isOpen}
+        open={isModalOpen}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <div>
-          <AddGiftForm
+          <GiftForm
             setGifts={setGifts}
             closeModalHandler={closeModalHandler}
+            method="POST"
           />
         </div>
       </Modal>

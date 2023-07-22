@@ -15,13 +15,23 @@ import Container from "@mui/material/Container";
 
 import classes from "./AddGiftForm.module.css";
 
-const AddGiftForm = ({ setGifts, closeModalHandler }) => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [link, setLink] = useState("");
+const AddGiftForm = ({
+  setGifts,
+  closeModalHandler,
+  method,
+  titleInitialValue,
+  descriptionInitialValue,
+  priceInitialValue,
+  linkInitialValue,
+  giftID,
+}) => {
+  const [title, setTitle] = useState(titleInitialValue || "");
+  const [description, setDescription] = useState(descriptionInitialValue || "");
+  const [price, setPrice] = useState(priceInitialValue || "");
+  const [link, setLink] = useState(linkInitialValue || "");
 
   const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const titleChangeHandler = (event) => {
     setTitle(event.target.value);
@@ -39,13 +49,15 @@ const AddGiftForm = ({ setGifts, closeModalHandler }) => {
   const formSubmitHandler = async (event) => {
     event.preventDefault();
 
+    setIsLoading(true);
+
     if (!Number(price)) {
       setIsError(true);
       return;
     }
 
-    const response = await fetch("/api/v1/gifts/create", {
-      method: "POST",
+    const response = await fetch(`/api/v1/gifts/${giftID || "create"}`, {
+      method,
       headers: {
         "Content-Type": "application/json",
       },
@@ -57,9 +69,18 @@ const AddGiftForm = ({ setGifts, closeModalHandler }) => {
       }),
     });
     const responseData = await response.json();
-    const addedGift = responseData.data;
-    setGifts((gifts) => [...gifts, addedGift]);
 
+    if (giftID) {
+      const editedGift = responseData.data;
+      setGifts((gifts) =>
+        gifts.map((gift) => (gift._id === giftID ? editedGift : gift))
+      );
+    } else {
+      const addedGift = responseData.data;
+      setGifts((gifts) => [...gifts, addedGift]);
+    }
+
+    setIsLoading(false);
     closeModalHandler();
   };
 
@@ -78,7 +99,7 @@ const AddGiftForm = ({ setGifts, closeModalHandler }) => {
               <RedeemIcon />
             </Avatar>
             <Typography component="h1" variant="h5" color="primary">
-              New Gift
+              {`${giftID ? "Edit" : "New"} Gift`}
             </Typography>
             <form onSubmit={formSubmitHandler}>
               <TextField
@@ -91,6 +112,7 @@ const AddGiftForm = ({ setGifts, closeModalHandler }) => {
                 label="Title"
                 name="title"
                 autoFocus
+                value={title}
               />
               <TextField
                 onChange={descriptionChangeHandler}
@@ -101,6 +123,7 @@ const AddGiftForm = ({ setGifts, closeModalHandler }) => {
                 label="Description"
                 type="description"
                 id="description"
+                value={description}
               />
               <TextField
                 onChange={priceChangeHandler}
@@ -112,6 +135,7 @@ const AddGiftForm = ({ setGifts, closeModalHandler }) => {
                 label="Price"
                 type="price"
                 id="price"
+                value={price}
               />
               <TextField
                 onChange={linkChangeHandler}
@@ -123,6 +147,7 @@ const AddGiftForm = ({ setGifts, closeModalHandler }) => {
                 label="Link"
                 type="link"
                 id="link"
+                value={link}
               />
 
               <Button
@@ -134,7 +159,7 @@ const AddGiftForm = ({ setGifts, closeModalHandler }) => {
                   margin: "2rem 0rem 2rem",
                 }}
               >
-                Add Gift!
+                {`${giftID ? "Edit" : "Add"} Gift`}
               </Button>
               {/* error */}
               {isError && (
@@ -156,7 +181,7 @@ const AddGiftForm = ({ setGifts, closeModalHandler }) => {
                 </Grid>
               )}
               {/* loading */}
-              {false && (
+              {isLoading && (
                 <Grid
                   container
                   direction="column"
