@@ -47,8 +47,16 @@ const GiftItem = ({ gift, setGifts }) => {
   };
 
   return (
-    <>
-      <Card sx={{ width: "40rem", padding: "0.5rem" }} className={classes.gift}>
+    <div className={classes["card-shadow"]}>
+      <Card
+        sx={{
+          width: "40rem",
+          padding: "0.5rem",
+          boxShadow: "none",
+          borderRadius: "1.5rem",
+        }}
+        className={classes.gift}
+      >
         <div className={classes["gift-content"]}>
           {gift.photo && (
             <CardMedia
@@ -109,7 +117,7 @@ const GiftItem = ({ gift, setGifts }) => {
           />
         </div>
       </Modal>
-    </>
+    </div>
   );
 };
 
