@@ -53,6 +53,7 @@ const AddGiftForm = ({
 
     if (!Number(price)) {
       setIsError(true);
+      setIsLoading(false);
       return;
     }
 
