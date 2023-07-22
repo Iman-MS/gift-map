@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import { Button } from "@mui/material";
 import Tooltip from "@mui/material/Tooltip";
 import Modal from "@mui/material/Modal";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CheckIcon from "@mui/icons-material/Check";
 import EditIcon from "@mui/icons-material/Edit";
@@ -33,6 +34,10 @@ const GiftItem = ({ gift, setGifts }) => {
     });
   };
 
+  const cancelDeleteHandler = () => {
+    setIsDelete(false);
+  };
+
   const closeModalHandler = () => {
     setIsModalOpen(false);
   };
@@ -43,7 +48,7 @@ const GiftItem = ({ gift, setGifts }) => {
 
   return (
     <>
-      <Card sx={{ width: "40rem" }} className={classes.gift}>
+      <Card sx={{ width: "40rem", padding: "0.5rem" }} className={classes.gift}>
         <div className={classes["gift-content"]}>
           {gift.photo && (
             <CardMedia
@@ -75,20 +80,13 @@ const GiftItem = ({ gift, setGifts }) => {
             </Button>
           )}
           {isDelete && (
-            <Tooltip
-              PopperProps={{
-                disablePortal: true,
-              }}
-              open={true}
-              disableFocusListener
-              disableHoverListener
-              disableTouchListener
-              title="Are you sure?"
-            >
-              <Button size="small" color="error" onClick={deleteGiftHandler}>
-                <CheckIcon />
-              </Button>
-            </Tooltip>
+            <ClickAwayListener onClickAway={cancelDeleteHandler}>
+              <Tooltip open={true} title="Are you sure?" arrow>
+                <Button size="small" onClick={deleteGiftHandler}>
+                  <CheckIcon />
+                </Button>
+              </Tooltip>
+            </ClickAwayListener>
           )}
         </div>
       </Card>
