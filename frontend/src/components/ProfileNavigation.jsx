@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 
 import AuthContext from "../contexts/auth-context";
 
+import SearchUser from "./SearchUser";
 import AvatarIcon from "./AvatarIcon";
 
 import MUILink from "@mui/material/Link";
-import TextField from "@mui/material/TextField";
 
 import logo from "../static/logo-transparent-png.png";
 
@@ -33,13 +33,7 @@ const ProfileNavigaion = () => {
         </MUILink>
       </div>
       <div className={classes.search}>
-        <TextField
-          id="standard-basic"
-          label="search users"
-          variant="outlined"
-          color="primary"
-          sx={{ width: "20rem", mt: "0.5rem" }}
-        />
+        <SearchUser />
       </div>
       {authCtx.isLoggedIn && <AvatarIcon />}
     </div>
