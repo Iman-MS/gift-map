@@ -8,6 +8,7 @@ import SearchUser from "./SearchUser";
 import AvatarIcon from "./AvatarIcon";
 
 import MUILink from "@mui/material/Link";
+import Typography from "@mui/material/Typography";
 
 import logo from "../static/logo-transparent-png.png";
 
@@ -35,7 +36,13 @@ const ProfileNavigaion = () => {
       <div className={classes.search}>
         <SearchUser />
       </div>
-      {authCtx.isLoggedIn && <AvatarIcon />}
+      <div className={classes["profile-icon"]}>
+        {authCtx.isLoggedIn ? (
+          <AvatarIcon />
+        ) : (
+          <Typography color="primary">Test</Typography>
+        )}
+      </div>
     </div>
   );
 };

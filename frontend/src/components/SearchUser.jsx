@@ -4,7 +4,9 @@ import TextField from "@mui/material/TextField";
 
 const SearchUser = () => {
   const searchChangeHandler = (event) => {
-    console.log(event.target.value);
+    if (event.target.value) {
+      console.log(event.target.value);
+    }
   };
 
   return (

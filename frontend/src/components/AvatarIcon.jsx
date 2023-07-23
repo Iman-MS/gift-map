@@ -14,8 +14,6 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 
-import classes from "./AvatarIcon.module.css";
-
 const AvatarIcon = () => {
   const authCtx = useContext(AuthContext);
 
@@ -54,18 +52,16 @@ const AvatarIcon = () => {
 
   return (
     <>
-      <div className={classes["profile-icon"]}>
-        <IconButton
-          onClick={handleClick}
-          size="small"
-          sx={{ ml: 2 }}
-          aria-controls={open ? "account-menu" : undefined}
-          aria-haspopup="true"
-          aria-expanded={open ? "true" : undefined}
-        >
-          <Avatar color="primary">{nameInitials}</Avatar>
-        </IconButton>
-      </div>
+      <IconButton
+        onClick={handleClick}
+        size="small"
+        sx={{ ml: 2 }}
+        aria-controls={open ? "account-menu" : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? "true" : undefined}
+      >
+        <Avatar color="primary">{nameInitials}</Avatar>
+      </IconButton>
       <Menu
         onBlur={handleClose}
         anchorEl={anchorEl}
