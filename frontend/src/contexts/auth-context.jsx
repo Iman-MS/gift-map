@@ -21,6 +21,7 @@ export const AuthContextProvider = (props) => {
         const response = await fetch("/api/v1/auth/me");
         const responseData = await response.json();
         setUser(responseData.data);
+        setIsLoggedIn(true);
       }
     };
     fetchUser();
@@ -39,7 +40,7 @@ export const AuthContextProvider = (props) => {
   const logoutHandler = () => {
     setIsLoggedIn(false);
     setUser(null);
-    removeCookie("token");
+    removeCookie("token", { path: "/" });
   };
 
   return (

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { useLoaderData } from "react-router-dom";
 
@@ -8,7 +8,13 @@ import GiftList from "./GiftList";
 import classes from "./ProfileContent.module.css";
 
 const ProfileContent = () => {
-  const [gifts, setGifts] = useState(useLoaderData());
+  const loaderData = useLoaderData();
+
+  const [gifts, setGifts] = useState(loaderData);
+
+  useEffect(() => {
+    setGifts(loaderData);
+  }, [loaderData]);
 
   return (
     <div className={classes.container}>
