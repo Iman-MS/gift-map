@@ -3,9 +3,9 @@ import React, { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 
 import AddIconButton from "./AddIconButton";
+import GiftList from "./GiftList";
 
 import classes from "./ProfileContent.module.css";
-import GiftList from "./GiftList";
 
 const ProfileContent = () => {
   const [gifts, setGifts] = useState(useLoaderData());
@@ -16,11 +16,7 @@ const ProfileContent = () => {
         <div className={classes["add-icon"]}>
           <AddIconButton setGifts={setGifts} />
         </div>
-        {gifts && (
-          <ul className={classes.list}>
-            <GiftList gifts={gifts} setGifts={setGifts} />
-          </ul>
-        )}
+        {gifts && <GiftList gifts={gifts} setGifts={setGifts} />}
       </div>
     </div>
   );
