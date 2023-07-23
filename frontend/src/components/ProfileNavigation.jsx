@@ -16,8 +16,6 @@ import classes from "./ProfileNavigation.module.css";
 const ProfileNavigaion = () => {
   const authCtx = useContext(AuthContext);
 
-  console.log(authCtx.isLoggedIn);
-
   const buttonStyle = {
     fontSize: "1.1rem",
     margin: "1rem",
