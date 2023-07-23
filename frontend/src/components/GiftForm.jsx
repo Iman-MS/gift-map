@@ -13,7 +13,7 @@ import RedeemIcon from "@mui/icons-material/Redeem";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
-import classes from "./AddGiftForm.module.css";
+import classes from "./GiftForm.module.css";
 
 const AddGiftForm = ({
   setGifts,

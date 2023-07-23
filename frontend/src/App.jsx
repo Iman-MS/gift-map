@@ -4,6 +4,7 @@ import RootLayoutPage from "./pages/RootLayout";
 import HomePage from "./pages/Home";
 import LoginPage from "./pages/login";
 import SignUpPage from "./pages/SignUp";
+import ProfileLayout from "./pages/ProfileLayout";
 import ProfilePage, { loader } from "./pages/Profile";
 import ErrorPage from "./pages/Error";
 
@@ -36,8 +37,19 @@ const router = createBrowserRouter([
   },
   {
     path: "/profile",
-    element: <ProfilePage />,
-    loader: loader,
+    element: <ProfileLayout />,
+    children: [
+      {
+        index: true,
+        element: <ProfilePage isLoggedInUser={true} />,
+        loader: loader,
+      },
+      {
+        path: ":userID",
+        element: <ProfilePage isLoggedInUser={false} />,
+        loader: loader,
+      },
+    ],
   },
 ]);
 

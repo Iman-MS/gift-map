@@ -1,12 +1,10 @@
 import React from "react";
 
-import ProfileNavigaion from "../components/ProfileNavigation";
 import ProfileContent from "../components/ProfileContent";
 
-const ProfilePage = () => {
+const ProfilePage = ({ isLoggedInUser }) => {
   return (
     <>
-      <ProfileNavigaion />
       <ProfileContent />
     </>
   );
@@ -14,8 +12,15 @@ const ProfilePage = () => {
 
 export default ProfilePage;
 
-export const loader = async () => {
-  const response = await fetch(`/api/v1/gifts`);
+export const loader = async ({ params }) => {
+  let response;
+
+  if (params.userID) {
+    response = await fetch(`/api/v1/users/${params.userID}/gifts/all`);
+  } else {
+    response = await fetch(`/api/v1/gifts`);
+  }
+
   const responseData = await response.json();
 
   return responseData.data;
