@@ -14,12 +14,12 @@ import advancedResults from "../middleware/advancedResults.js";
 import User from "../models/User.js";
 
 // // include other resource routers
-// import giftsRouter from "./gifts.js";
+import giftsRouter from "./gifts.js";
 
 const router = express.Router();
 
 // // re-route into other resource routers
-// router.use("/:userId/gifts", giftsRouter);
+router.use("/:userId/gifts/", giftsRouter);
 
 router.route("/all").get(advancedResults(User, "gifts"), getUsers);
 

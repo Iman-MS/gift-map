@@ -18,7 +18,7 @@ export const getGifts = asyncHandler(async (req, res, next) => {
 
 // @desc   gets all gifts
 // @route  GET /api/v1/gifts/all
-// @route  GET /api/v1/:userId/gifts
+// @route  GET /api/v1/:userId/gifts/all
 // @access Private
 export const getAllGifts = asyncHandler(async (req, res, next) => {
   if (req.params.userId) {
