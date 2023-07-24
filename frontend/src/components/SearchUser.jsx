@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import SearchedUsersList from "./SearchedUsersList";
 
@@ -8,37 +8,53 @@ import classes from "./SearchUser.module.css";
 
 const SearchUser = () => {
   const [users, setUsers] = useState(null);
+  const [searchField, setSearchField] = useState(null);
+  const [isSearchedUsersShown, setIsSearchedUsersShown] = useState(false);
 
-  const searchHandler = async (event) => {
-    if (event.target.value) {
-      const response = await fetch(
-        `/api/v1/users/all?name=${event.target.value}`
-      );
-      const responseData = await response.json();
-      setUsers(responseData.data);
-    } else {
-      setUsers(null);
-    }
+  useEffect(() => {
+    const identifier = setTimeout(async () => {
+      if (searchField) {
+        const response = await fetch(
+          `/api/v1/users/all?name=${searchField}&limit=10`
+        );
+        const responseData = await response.json();
+        setUsers(responseData.data);
+      } else {
+        setUsers(null);
+      }
+    }, 500);
+
+    return () => {
+      clearTimeout(identifier);
+    };
+  }, [searchField]);
+
+  const searchFiledChangeHandler = (event) => {
+    setSearchField(event.target.value);
   };
 
-  const cancelSearch = () => {
-    setUsers(null);
+  const showSearchResultHandler = () => {
+    setIsSearchedUsersShown(true);
+  };
+
+  const cancelSearch = (event) => {
+    console.log(event.relatedTarget);
+    setIsSearchedUsersShown(false);
   };
 
   return (
     <div className={classes["search-container"]}>
       <div className={classes.search}>
         <TextField
-          onChange={searchHandler}
-          onFocus={searchHandler}
-          onBlur={cancelSearch}
+          onChange={searchFiledChangeHandler}
+          onFocus={showSearchResultHandler}
           id="standard-basic"
           label="search users"
           variant="outlined"
           color="primary"
           sx={{ width: "20rem", mt: "0.5rem" }}
         />
-        {users && <SearchedUsersList users={users} />}
+        {isSearchedUsersShown && users && <SearchedUsersList users={users} />}
       </div>
     </div>
   );

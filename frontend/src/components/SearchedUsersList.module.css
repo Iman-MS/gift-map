@@ -1,4 +1,6 @@
 .search-list {
   width: 100%;
   position: absolute;
+  max-height: 224px;
+  overflow-y: auto;
 }

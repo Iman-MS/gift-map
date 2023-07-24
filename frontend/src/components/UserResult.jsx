@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Card from "@mui/material/Card";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
-import { CardActionArea } from "@mui/material";
+import Divider from "@mui/material/Divider";
 
 import classes from "./UserResult.module.css";
 
@@ -17,18 +17,19 @@ const UserResult = ({ user }) => {
   };
 
   return (
-    <Card
-      className={classes["user-container"]}
-      onClick={navigateUserPageHandler}
-    >
-      <CardActionArea>
+    <>
+      <Card
+        className={classes["user-container"]}
+        onClick={navigateUserPageHandler}
+      >
         <Avatar
           alt="avatar"
           src={`https://api.dicebear.com/6.x/bottts/svg?seed=${user.name}`}
         />
         <Typography sx={{ ml: "0.5rem" }}>{user.name}</Typography>
-      </CardActionArea>
-    </Card>
+      </Card>
+      <Divider />
+    </>
   );
 };
 
