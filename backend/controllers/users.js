@@ -8,7 +8,28 @@ import asyncHandler from "../middleware/async.js";
 // @route  GET /api/v1/users/all
 // @access Private
 export const getUsers = asyncHandler(async (req, res, next) => {
-  res.status(200).json(res.advancedResults);
+  const { name, limit } = req.query;
+
+  try {
+    let query = {};
+
+    // If the 'name' parameter is provided, add the name filter to the query
+    if (name) {
+      query.name = { $regex: new RegExp(name, "i") };
+    }
+
+    let limitValue = parseInt(limit, 10); // Parse 'limit' to an integer
+
+    // Check if 'limit' is a valid positive integer, otherwise set it to 3
+    if (isNaN(limitValue) || limitValue <= 0) {
+      limitValue = 3;
+    }
+
+    // Fetch users based on the query
+    const users = await User.find(query).limit(limitValue);
+
+    res.status(200).json({ success: true, data: users });
+  } catch (err) {}
 });
 
 // @desc   gets a user

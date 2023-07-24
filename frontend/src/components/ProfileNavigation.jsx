@@ -33,13 +33,12 @@ const ProfileNavigaion = () => {
           <img src={logo} alt="GiftMap Logo" className={classes.logo} />
         </MUILink>
       </div>
-      <div className={classes.search}>
-        <SearchUser />
-      </div>
+      <SearchUser />
       <div className={classes["profile-icon"]}>
         {authCtx.isLoggedIn ? (
           <AvatarIcon />
         ) : (
+          // to be implemented(change with login and signup buttons)
           <Typography color="primary">Test</Typography>
         )}
       </div>

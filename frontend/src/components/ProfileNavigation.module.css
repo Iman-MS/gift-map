@@ -13,14 +13,6 @@
   padding-top: 0.5rem;
 }
 
-.search {
-  display: flex;
-  justify-content: flex-start;
-  flex: 1;
-  margin-left: 2rem;
-  margin-right: 2rem;
-}
-
 .profile-icon {
   margin-right: 2rem;
   margin-top: 1rem;

@@ -21,7 +21,8 @@ const router = express.Router();
 // // re-route into other resource routers
 router.use("/:userId/gifts/", giftsRouter);
 
-router.route("/all").get(advancedResults(User, "gifts"), getUsers);
+// router.route("/all").get(advancedResults(User, "gifts"), getUsers);
+router.route("/all").get(getUsers);
 
 router.route("/create").post(createUser);
 
