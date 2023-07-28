@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
 import Modal from "@mui/material/Modal";
 
 import AddIcon from "@mui/icons-material/Add";
@@ -20,9 +20,14 @@ const AddIconButton = ({ setGifts }) => {
 
   return (
     <>
-      <Button onClick={addClickHandler}>
+      <IconButton
+        aria-label="add"
+        color="primary"
+        size="large"
+        onClick={addClickHandler}
+      >
         <AddIcon color="primary" sx={{ fontSize: "2rem" }} />
-      </Button>
+      </IconButton>
       <Modal
         onClose={closeModalHandler}
         open={isModalOpen}

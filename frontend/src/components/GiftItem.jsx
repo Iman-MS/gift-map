@@ -7,7 +7,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Button } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import Modal from "@mui/material/Modal";
 import Zoom from "@mui/material/Zoom";
@@ -112,24 +112,34 @@ const GiftItem = ({ gift, setGifts, isLoggedInUser }) => {
           <Typography sx={{ mr: "1rem" }}>{`$${gift.price}`}</Typography>
           {isLoggedInUser && (
             <>
-              <Button size="small" color="primary" onClick={editClickHandler}>
+              <IconButton
+                aria-label="edit"
+                size="large"
+                onClick={editClickHandler}
+              >
                 <EditIcon />
-              </Button>
+              </IconButton>
               {!isDelete && (
-                <Button
-                  size="small"
+                <IconButton
+                  aria-label="delete"
                   color="error"
+                  size="large"
                   onClick={deleteButtonHandler}
                 >
                   <DeleteIcon />
-                </Button>
+                </IconButton>
               )}
               {isDelete && (
                 <ClickAwayListener onClickAway={cancelDeleteHandler}>
                   <Tooltip open={true} title="Are you sure?" arrow>
-                    <Button size="small" onClick={deleteGiftHandler}>
+                    <IconButton
+                      aria-label="delete"
+                      color="success"
+                      size="large"
+                      onClick={deleteGiftHandler}
+                    >
                       <CheckIcon />
-                    </Button>
+                    </IconButton>
                   </Tooltip>
                 </ClickAwayListener>
               )}
@@ -142,11 +152,15 @@ const GiftItem = ({ gift, setGifts, isLoggedInUser }) => {
                 TransitionComponent={Zoom}
                 placement="top"
                 title="Add to my gifts"
-                onClick={addGiftHandler}
               >
-                <Button size="small" color="primary">
+                <IconButton
+                  aria-label="add"
+                  color="primary"
+                  size="large"
+                  onClick={addGiftHandler}
+                >
                   <AddIcon />
-                </Button>
+                </IconButton>
               </Tooltip>
               <Snackbar
                 open={isGiftAddedMessageOpen}
