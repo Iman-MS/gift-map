@@ -9,18 +9,21 @@ import Divider from "@mui/material/Divider";
 
 import classes from "./UserResult.module.css";
 
-const UserResult = ({ user }) => {
+const UserResult = ({ user, setIsSearchedUsersShown }) => {
   const navigate = useNavigate();
 
   const navigateUserPageHandler = () => {
     navigate(`/profile/${user._id}`);
+    setIsSearchedUsersShown(false);
   };
 
   return (
     <>
       <Card
+        tabIndex="0"
         className={classes["user-container"]}
         onClick={navigateUserPageHandler}
+        sx={{ borderRadius: "0", boxShadow: "none" }}
       >
         <Avatar
           alt="avatar"
@@ -28,7 +31,7 @@ const UserResult = ({ user }) => {
         />
         <Typography sx={{ ml: "0.5rem" }}>{user.name}</Typography>
       </Card>
-      <Divider />
+      <Divider variant="middle" />
     </>
   );
 };

@@ -5,7 +5,7 @@ import ProfileContent from "../components/ProfileContent";
 const ProfilePage = ({ isLoggedInUser }) => {
   return (
     <>
-      <ProfileContent />
+      <ProfileContent isLoggedInUser={isLoggedInUser} />
     </>
   );
 };

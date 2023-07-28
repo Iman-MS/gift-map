@@ -38,13 +38,12 @@ const SearchUser = () => {
   };
 
   const cancelSearch = (event) => {
-    console.log(event.relatedTarget);
-    setIsSearchedUsersShown(false);
+    if (event.relatedTarget === null) setIsSearchedUsersShown(false);
   };
 
   return (
     <div className={classes["search-container"]}>
-      <div className={classes.search}>
+      <div className={classes.search} onBlur={cancelSearch}>
         <TextField
           onChange={searchFiledChangeHandler}
           onFocus={showSearchResultHandler}
@@ -54,7 +53,12 @@ const SearchUser = () => {
           color="primary"
           sx={{ width: "20rem", mt: "0.5rem" }}
         />
-        {isSearchedUsersShown && users && <SearchedUsersList users={users} />}
+        {isSearchedUsersShown && users && (
+          <SearchedUsersList
+            users={users}
+            setIsSearchedUsersShown={setIsSearchedUsersShown}
+          />
+        )}
       </div>
     </div>
   );

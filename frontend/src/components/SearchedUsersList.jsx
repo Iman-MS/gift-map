@@ -6,11 +6,15 @@ import Paper from "@mui/material/Paper";
 
 import classes from "./SearchedUsersList.module.css";
 
-const SearchedUsersList = ({ users }) => {
+const SearchedUsersList = ({ users, setIsSearchedUsersShown }) => {
   return (
     <Paper elevation={10} className={classes["search-list"]}>
       {users.map((user, i) => (
-        <UserResult key={user._id} user={user} />
+        <UserResult
+          key={user._id}
+          user={user}
+          setIsSearchedUsersShown={setIsSearchedUsersShown}
+        />
       ))}
     </Paper>
   );
