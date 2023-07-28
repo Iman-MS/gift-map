@@ -51,12 +51,14 @@ const SearchUser = () => {
           label="search users"
           variant="outlined"
           color="primary"
+          value={searchField}
           sx={{ width: "20rem", mt: "0.5rem" }}
         />
         {isSearchedUsersShown && users && (
           <SearchedUsersList
             users={users}
             setIsSearchedUsersShown={setIsSearchedUsersShown}
+            setSearchField={setSearchField}
           />
         )}
       </div>

@@ -9,12 +9,13 @@ import Divider from "@mui/material/Divider";
 
 import classes from "./UserResult.module.css";
 
-const UserResult = ({ user, setIsSearchedUsersShown }) => {
+const UserResult = ({ user, setIsSearchedUsersShown, setSearchField }) => {
   const navigate = useNavigate();
 
   const navigateUserPageHandler = () => {
     navigate(`/profile/${user._id}`);
     setIsSearchedUsersShown(false);
+    setSearchField("");
   };
 
   return (
