@@ -6,9 +6,10 @@ import AuthContext from "../contexts/auth-context";
 
 import SearchUser from "./SearchUser";
 import AvatarIcon from "./AvatarIcon";
+import LoginButton from "./LoginButton";
+import SignUpButton from "./SignUpButton";
 
 import MUILink from "@mui/material/Link";
-import Typography from "@mui/material/Typography";
 
 import logo from "../static/logo-transparent-png.png";
 
@@ -39,7 +40,10 @@ const ProfileNavigaion = () => {
           <AvatarIcon />
         ) : (
           // to be implemented(change with login and signup buttons)
-          <Typography color="primary">Test</Typography>
+          <>
+            <LoginButton />
+            <SignUpButton />
+          </>
         )}
       </div>
     </div>

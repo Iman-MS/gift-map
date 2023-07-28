@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
+import AuthContext from "../contexts/auth-context";
 import GiftForm from "./GiftForm";
 
 import Card from "@mui/material/Card";
@@ -9,18 +10,25 @@ import Typography from "@mui/material/Typography";
 import { Button } from "@mui/material";
 import Tooltip from "@mui/material/Tooltip";
 import Modal from "@mui/material/Modal";
+import Zoom from "@mui/material/Zoom";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CheckIcon from "@mui/icons-material/Check";
 import EditIcon from "@mui/icons-material/Edit";
+import AddIcon from "@mui/icons-material/Add";
 
 import giftImage from "../static/giftListPlaceholder.png";
 
 import classes from "./GiftItem.module.css";
 
-const GiftItem = ({ gift, setGifts }) => {
+const GiftItem = ({ gift, setGifts, isLoggedInUser }) => {
   const [isDelete, setIsDelete] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isGiftAddedMessageOpen, setIsGiftAddedMessageOpen] = useState(false);
+
+  const authCtx = useContext(AuthContext);
 
   const deleteButtonHandler = () => {
     setIsDelete(true);
@@ -44,6 +52,29 @@ const GiftItem = ({ gift, setGifts }) => {
 
   const editClickHandler = () => {
     setIsModalOpen(true);
+  };
+
+  const addGiftHandler = async () => {
+    const response = await fetch("/api/v1/gifts/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title: gift.title,
+        description: gift.description,
+        price: gift.price,
+        link: gift.link,
+      }),
+    });
+
+    if (response.ok) {
+      setIsGiftAddedMessageOpen(true);
+    }
+  };
+
+  const closeAddGiftMessageHandler = () => {
+    setIsGiftAddedMessageOpen(false);
   };
 
   return (
@@ -79,22 +110,60 @@ const GiftItem = ({ gift, setGifts }) => {
         </div>
         <div className={classes["gift-actions"]}>
           <Typography sx={{ mr: "1rem" }}>{`$${gift.price}`}</Typography>
-          <Button size="small" color="primary" onClick={editClickHandler}>
-            <EditIcon />
-          </Button>
-          {!isDelete && (
-            <Button size="small" color="error" onClick={deleteButtonHandler}>
-              <DeleteIcon />
-            </Button>
+          {isLoggedInUser && (
+            <>
+              <Button size="small" color="primary" onClick={editClickHandler}>
+                <EditIcon />
+              </Button>
+              {!isDelete && (
+                <Button
+                  size="small"
+                  color="error"
+                  onClick={deleteButtonHandler}
+                >
+                  <DeleteIcon />
+                </Button>
+              )}
+              {isDelete && (
+                <ClickAwayListener onClickAway={cancelDeleteHandler}>
+                  <Tooltip open={true} title="Are you sure?" arrow>
+                    <Button size="small" onClick={deleteGiftHandler}>
+                      <CheckIcon />
+                    </Button>
+                  </Tooltip>
+                </ClickAwayListener>
+              )}
+            </>
           )}
-          {isDelete && (
-            <ClickAwayListener onClickAway={cancelDeleteHandler}>
-              <Tooltip open={true} title="Are you sure?" arrow>
-                <Button size="small" onClick={deleteGiftHandler}>
-                  <CheckIcon />
+          {!isLoggedInUser && authCtx.isLoggedIn && (
+            <>
+              <Tooltip
+                arrow
+                TransitionComponent={Zoom}
+                placement="top"
+                title="Add to my gifts"
+                onClick={addGiftHandler}
+              >
+                <Button size="small" color="primary">
+                  <AddIcon />
                 </Button>
               </Tooltip>
-            </ClickAwayListener>
+              <Snackbar
+                open={isGiftAddedMessageOpen}
+                autoHideDuration={4000}
+                onClose={closeAddGiftMessageHandler}
+              >
+                <Alert
+                  severity="success"
+                  elevation={6}
+                  variant="filled"
+                  sx={{ width: "100%" }}
+                  onClose={closeAddGiftMessageHandler}
+                >
+                  Added successfully!
+                </Alert>
+              </Snackbar>
+            </>
           )}
         </div>
       </Card>

@@ -24,7 +24,13 @@ const ProfileContent = ({ isLoggedInUser }) => {
             <AddIconButton setGifts={setGifts} />
           </div>
         )}
-        {gifts && <GiftList gifts={gifts} setGifts={setGifts} />}
+        {gifts && (
+          <GiftList
+            gifts={gifts}
+            setGifts={setGifts}
+            isLoggedInUser={isLoggedInUser}
+          />
+        )}
       </div>
     </div>
   );
