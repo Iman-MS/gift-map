@@ -90,16 +90,15 @@ const GiftItem = ({ gift, setGifts, isLoggedInUser }) => {
         className={classes.gift}
       >
         <div className={classes["gift-content"]}>
-          {true && (
-            <div className={classes["image-container"]}>
-              <CardMedia
-                component="img"
-                sx={{ height: "100%" }}
-                src={gift.imageLink || giftImage}
-                alt="gift image"
-              />
-            </div>
-          )}
+          <div className={classes["image-container"]}>
+            <CardMedia
+              component="img"
+              sx={{ height: "100%", width: "auto" }}
+              src={gift.imageLink || giftImage}
+              alt="gift image"
+            />
+          </div>
+
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
               {gift.title}
