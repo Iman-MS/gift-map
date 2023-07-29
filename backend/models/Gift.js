@@ -18,9 +18,17 @@ const GiftSchema = new mongoose.Schema({
   link: {
     type: String,
     required: [true, "Please enter the link to the gift"],
+    match: [
+      /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/,
+      "Please enter a valid link",
+    ],
   },
-  photo: {
+  imageLink: {
     type: String,
+    match: [
+      /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/,
+      "Please enter a valid image link",
+    ],
   },
   user: {
     type: mongoose.Schema.ObjectId,
