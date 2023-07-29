@@ -55,6 +55,7 @@ const GiftItem = ({ gift, setGifts, isLoggedInUser }) => {
   };
 
   const addGiftHandler = async () => {
+    console.log(gift);
     const response = await fetch("/api/v1/gifts/create", {
       method: "POST",
       headers: {
@@ -65,6 +66,7 @@ const GiftItem = ({ gift, setGifts, isLoggedInUser }) => {
         description: gift.description,
         price: gift.price,
         link: gift.link,
+        imageLink: gift.imageLink,
       }),
     });
 
