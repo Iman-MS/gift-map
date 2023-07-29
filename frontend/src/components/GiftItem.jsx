@@ -89,11 +89,11 @@ const GiftItem = ({ gift, setGifts, isLoggedInUser }) => {
         className={classes.gift}
       >
         <div className={classes["gift-content"]}>
-          {gift.photo && (
+          {gift.imageLink && (
             <CardMedia
               component="img"
               height="140"
-              src={giftImage}
+              src={gift.imageLink || giftImage}
               alt="gift image"
             />
           )}

@@ -170,7 +170,7 @@ const GiftForm = ({
                 fullWidth
                 name="imageLink"
                 label="Image Link"
-                type="link"
+                type="ImageLink"
                 id="imageLink"
                 value={imageLink}
               />
