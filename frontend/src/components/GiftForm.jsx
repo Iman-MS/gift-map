@@ -200,8 +200,10 @@ const GiftForm = ({
                     variant="outlined"
                     style={{ backgroundColor: "#ff000012" }}
                   >
-                    <AlertTitle>Error</AlertTitle>
-                    Please enter a number for the price
+                    <AlertTitle>Error</AlertTitle>- Please enter a number for
+                    the price
+                    <br /> - Please enter a valid link for the link and image
+                    link
                   </Alert>
                 </Grid>
               )}
