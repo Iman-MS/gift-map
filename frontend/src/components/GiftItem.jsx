@@ -196,6 +196,7 @@ const GiftItem = ({ gift, setGifts, isLoggedInUser }) => {
             descriptionInitialValue={gift.description}
             priceInitialValue={gift.price}
             linkInitialValue={gift.link}
+            imageLinkInitialValue={gift.imageLink}
             giftID={gift._id}
           />
         </div>

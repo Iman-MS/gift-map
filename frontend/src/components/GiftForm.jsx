@@ -15,7 +15,10 @@ import Container from "@mui/material/Container";
 
 import classes from "./GiftForm.module.css";
 
-const AddGiftForm = ({
+const linkRegex =
+  /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;
+
+const GiftForm = ({
   setGifts,
   closeModalHandler,
   method,
@@ -23,12 +26,14 @@ const AddGiftForm = ({
   descriptionInitialValue,
   priceInitialValue,
   linkInitialValue,
+  imageLinkInitialValue,
   giftID,
 }) => {
   const [title, setTitle] = useState(titleInitialValue || "");
   const [description, setDescription] = useState(descriptionInitialValue || "");
   const [price, setPrice] = useState(priceInitialValue || "");
   const [link, setLink] = useState(linkInitialValue || "");
+  const [imageLink, setImageLink] = useState(imageLinkInitialValue || "");
 
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -45,13 +50,20 @@ const AddGiftForm = ({
   const linkChangeHandler = (event) => {
     setLink(event.target.value);
   };
+  const imageLinkChangeHandler = (event) => {
+    setImageLink(event.target.value);
+  };
 
   const formSubmitHandler = async (event) => {
     event.preventDefault();
 
     setIsLoading(true);
 
-    if (!Number(price)) {
+    if (
+      !Number(price) ||
+      !linkRegex.test(link) ||
+      (imageLink && !linkRegex.test(imageLink))
+    ) {
       setIsError(true);
       setIsLoading(false);
       return;
@@ -67,6 +79,7 @@ const AddGiftForm = ({
         description,
         price,
         link,
+        imageLink,
       }),
     });
     const responseData = await response.json();
@@ -150,6 +163,17 @@ const AddGiftForm = ({
                 id="link"
                 value={link}
               />
+              <TextField
+                onChange={imageLinkChangeHandler}
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                name="imageLink"
+                label="Image Link"
+                type="link"
+                id="imageLink"
+                value={imageLink}
+              />
 
               <Button
                 type="submit"
@@ -200,4 +224,4 @@ const AddGiftForm = ({
   );
 };
 
-export default AddGiftForm;
+export default GiftForm;
