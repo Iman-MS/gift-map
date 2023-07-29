@@ -100,7 +100,7 @@ const GiftItem = ({ gift, setGifts, isLoggedInUser }) => {
               alt="gift image"
             />
           </div>
-          <div className={classes["gift-content-container"]}>
+          <div className={classes["gift-text-container"]}>
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
                 {gift.title}
