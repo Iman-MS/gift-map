@@ -8,7 +8,7 @@ import classes from "./SearchUser.module.css";
 
 const SearchUser = () => {
   const [users, setUsers] = useState(null);
-  const [searchField, setSearchField] = useState(null);
+  const [searchField, setSearchField] = useState("");
   const [isSearchedUsersShown, setIsSearchedUsersShown] = useState(false);
 
   useEffect(() => {

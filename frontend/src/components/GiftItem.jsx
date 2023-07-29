@@ -81,7 +81,8 @@ const GiftItem = ({ gift, setGifts, isLoggedInUser }) => {
     <div className={classes["card-shadow"]}>
       <Card
         sx={{
-          width: "40rem",
+          width: "50rem",
+          height: "10rem",
           padding: "0.5rem",
           boxShadow: "none",
           borderRadius: "1.5rem",
@@ -89,13 +90,15 @@ const GiftItem = ({ gift, setGifts, isLoggedInUser }) => {
         className={classes.gift}
       >
         <div className={classes["gift-content"]}>
-          {gift.imageLink && (
-            <CardMedia
-              component="img"
-              height="140"
-              src={gift.imageLink || giftImage}
-              alt="gift image"
-            />
+          {true && (
+            <div className={classes["image-container"]}>
+              <CardMedia
+                component="img"
+                sx={{ height: "100%" }}
+                src={gift.imageLink || giftImage}
+                alt="gift image"
+              />
+            </div>
           )}
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
