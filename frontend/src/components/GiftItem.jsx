@@ -95,7 +95,7 @@ const GiftItem = ({ gift, setGifts, isLoggedInUser }) => {
           <div className={classes["image-container"]}>
             <CardMedia
               component="img"
-              sx={{ height: "100%", width: "auto" }}
+              sx={{ objectFit: "contain" }}
               src={gift.imageLink || giftImage}
               alt="gift image"
             />
