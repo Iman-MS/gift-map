@@ -18,6 +18,10 @@
   margin-right: 2rem;
 }
 
+.gift-content-container {
+  width: 25rem;
+}
+
 .gift-actions {
   display: flex;
   justify-content: center;

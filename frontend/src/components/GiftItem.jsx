@@ -100,17 +100,18 @@ const GiftItem = ({ gift, setGifts, isLoggedInUser }) => {
               alt="gift image"
             />
           </div>
-
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              {gift.title}
-            </Typography>
-            {gift.description && (
-              <Typography variant="body2" color="text.secondary">
-                {gift.description}
+          <div className={classes["gift-content-container"]}>
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div">
+                {gift.title}
               </Typography>
-            )}
-          </CardContent>
+              {gift.description && (
+                <Typography variant="body2" color="text.secondary">
+                  {gift.description}
+                </Typography>
+              )}
+            </CardContent>
+          </div>
         </div>
         <div className={classes["gift-actions"]}>
           <Typography sx={{ mr: "1rem" }}>{`$${gift.price}`}</Typography>
