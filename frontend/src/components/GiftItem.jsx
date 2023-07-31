@@ -15,6 +15,7 @@ import Modal from "@mui/material/Modal";
 import Zoom from "@mui/material/Zoom";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
+import MUILink from "@mui/material/Link";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CheckIcon from "@mui/icons-material/Check";
@@ -88,7 +89,7 @@ const GiftItem = ({ gift, setGifts }) => {
     <div className={classes["card-shadow"]}>
       <Card
         sx={{
-          width: "50rem",
+          width: "55rem",
           height: "10rem",
           padding: "0.5rem",
           boxShadow: "none",
@@ -189,6 +190,18 @@ const GiftItem = ({ gift, setGifts }) => {
               </Snackbar>
             </>
           )}
+          <Tooltip
+            arrow
+            TransitionComponent={Zoom}
+            placement="top"
+            title="Open link"
+          >
+            <MUILink href={gift.link} target="_blank" rel="noopener">
+              <IconButton aria-label="open-link" color="primary" size="large">
+                <OpenInNewIcon />
+              </IconButton>
+            </MUILink>
+          </Tooltip>
         </div>
       </Card>
       <Modal
