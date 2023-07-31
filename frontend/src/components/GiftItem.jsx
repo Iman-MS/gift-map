@@ -1,5 +1,7 @@
 import React, { useState, useContext } from "react";
 
+import { useParams } from "react-router-dom";
+
 import AuthContext from "../contexts/auth-context";
 import GiftForm from "./GiftForm";
 
@@ -23,12 +25,14 @@ import giftImage from "../static/giftListPlaceholder.png";
 
 import classes from "./GiftItem.module.css";
 
-const GiftItem = ({ gift, setGifts, isLoggedInUser }) => {
+const GiftItem = ({ gift, setGifts }) => {
   const [isDelete, setIsDelete] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isGiftAddedMessageOpen, setIsGiftAddedMessageOpen] = useState(false);
 
   const authCtx = useContext(AuthContext);
+
+  const { userID } = useParams();
 
   const deleteButtonHandler = () => {
     setIsDelete(true);
@@ -115,7 +119,7 @@ const GiftItem = ({ gift, setGifts, isLoggedInUser }) => {
         </div>
         <div className={classes["gift-actions"]}>
           <Typography sx={{ mr: "1rem" }}>{`$${gift.price}`}</Typography>
-          {isLoggedInUser && (
+          {!userID && (
             <>
               <IconButton
                 aria-label="edit"
@@ -150,7 +154,7 @@ const GiftItem = ({ gift, setGifts, isLoggedInUser }) => {
               )}
             </>
           )}
-          {!isLoggedInUser && authCtx.isLoggedIn && (
+          {userID && authCtx.isLoggedIn && (
             <>
               <Tooltip
                 arrow

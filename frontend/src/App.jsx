@@ -41,12 +41,12 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <ProfilePage isLoggedInUser={true} />,
+        element: <ProfilePage />,
         loader: loader,
       },
       {
         path: ":userID",
-        element: <ProfilePage isLoggedInUser={false} />,
+        element: <ProfilePage />,
         loader: loader,
       },
     ],

@@ -2,10 +2,10 @@ import React from "react";
 
 import ProfileContent from "../components/ProfileContent";
 
-const ProfilePage = ({ isLoggedInUser }) => {
+const ProfilePage = () => {
   return (
     <>
-      <ProfileContent isLoggedInUser={isLoggedInUser} />
+      <ProfileContent />
     </>
   );
 };
