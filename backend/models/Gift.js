@@ -30,6 +30,10 @@ const GiftSchema = new mongoose.Schema({
       "Please enter a valid image link",
     ],
   },
+  createdAt: {
+    type: Date,
+    default: Date.now, // This will set the current date when a new gift is created
+  },
   user: {
     type: mongoose.Schema.ObjectId,
     ref: "User",
