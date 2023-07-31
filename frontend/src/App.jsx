@@ -5,7 +5,10 @@ import HomePage from "./pages/Home";
 import LoginPage from "./pages/login";
 import SignUpPage from "./pages/SignUp";
 import ProfileLayout from "./pages/ProfileLayout";
-import ProfilePage, { loader } from "./pages/Profile";
+import ProfilePage, { loader as profilePageLoader } from "./pages/Profile";
+import RecentlyAddedGiftsPage, {
+  loader as recentlyAddedGiftsLoader,
+} from "./pages/RecentlyAddedGifts";
 import ErrorPage from "./pages/Error";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -42,12 +45,23 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <ProfilePage />,
-        loader: loader,
+        loader: profilePageLoader,
       },
       {
         path: ":userID",
         element: <ProfilePage />,
-        loader: loader,
+        loader: profilePageLoader,
+      },
+    ],
+  },
+  {
+    path: "recently-added-gifts",
+    element: <ProfileLayout />,
+    children: [
+      {
+        index: true,
+        element: <RecentlyAddedGiftsPage />,
+        loader: recentlyAddedGiftsLoader,
       },
     ],
   },
