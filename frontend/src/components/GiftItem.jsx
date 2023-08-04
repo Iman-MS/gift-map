@@ -1,4 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+
+import { useParams } from "react-router-dom";
+
+import AuthContext from "../contexts/auth-context";
 
 import GiftContent from "./GiftContent";
 import GiftActions from "./GiftActions";
@@ -8,6 +12,10 @@ import Card from "@mui/material/Card";
 import classes from "./GiftItem.module.css";
 
 const GiftItem = ({ gift, setGifts }) => {
+  const authCtx = useContext(AuthContext);
+
+  const { userID } = useParams();
+
   return (
     <div className={classes["card-shadow"]}>
       <Card
@@ -25,7 +33,12 @@ const GiftItem = ({ gift, setGifts }) => {
           title={gift.title}
           description={gift.description}
         />
-        <GiftActions gift={gift} setGifts={setGifts} />
+        <GiftActions
+          gift={gift}
+          setGifts={setGifts}
+          isGiftManipulationShown={!userID}
+          isAddToMyListShown={userID && authCtx.isLoggedIn}
+        />
       </Card>
     </div>
   );

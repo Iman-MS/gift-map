@@ -1,8 +1,4 @@
-import React, { useState, useContext } from "react";
-
-import { useParams } from "react-router-dom";
-
-import AuthContext from "../contexts/auth-context";
+import React, { useState } from "react";
 
 import GiftForm from "./GiftForm";
 
@@ -23,14 +19,15 @@ import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 
 import classes from "./GiftActions.module.css";
 
-const GiftActions = ({ gift, setGifts }) => {
+const GiftActions = ({
+  gift,
+  setGifts,
+  isGiftManipulationShown,
+  isAddToMyListShown,
+}) => {
   const [isDelete, setIsDelete] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isGiftAddedMessageOpen, setIsGiftAddedMessageOpen] = useState(false);
-
-  const authCtx = useContext(AuthContext);
-
-  const { userID } = useParams();
 
   const deleteButtonHandler = () => {
     setIsDelete(true);
@@ -85,7 +82,7 @@ const GiftActions = ({ gift, setGifts }) => {
       <Typography
         sx={{ mr: "1rem", width: "70px" }}
       >{`$${gift.price}`}</Typography>
-      {!userID && (
+      {isGiftManipulationShown && (
         <>
           <IconButton aria-label="edit" size="large" onClick={editClickHandler}>
             <EditIcon />
@@ -116,7 +113,7 @@ const GiftActions = ({ gift, setGifts }) => {
           )}
         </>
       )}
-      {userID && authCtx.isLoggedIn && (
+      {isAddToMyListShown && (
         <>
           <Tooltip
             arrow
