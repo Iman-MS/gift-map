@@ -5,8 +5,9 @@ import { useCookies } from "react-cookie";
 const AuthContext = React.createContext({
   isLoggedIn: false,
   user: null,
-  onLogin: () => {},
+  onLogin: async () => {},
   onLogout: () => {},
+  onUserNameChange: async () => {},
 });
 
 export const AuthContextProvider = (props) => {
@@ -43,13 +44,27 @@ export const AuthContextProvider = (props) => {
     removeCookie("token", { path: "/" });
   };
 
+  const userNameChangeHandler = async (body) => {
+    const response = await fetch("/api/v1/users/", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+    const responseData = await response.json();
+
+    setUser(responseData.data);
+  };
+
   return (
     <AuthContext.Provider
       value={{
-        isLoggedIn: isLoggedIn,
+        isLoggedIn,
         user,
         onLogin: loginHandler,
         onLogout: logoutHandler,
+        onUserNameChange: userNameChangeHandler,
       }}
     >
       {props.children}

@@ -29,7 +29,7 @@ const SettingsModalForm = ({ closeSettingsModalHandler }) => {
     setName(event.target.value);
   };
 
-  const formSubmitHandler = (event) => {
+  const formSubmitHandler = async (event) => {
     event.preventDefault();
     setIsLoading(true);
 
@@ -38,15 +38,7 @@ const SettingsModalForm = ({ closeSettingsModalHandler }) => {
       return;
     }
 
-    fetch("/api/v1/users/", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name,
-      }),
-    });
+    await authCtx.onUserNameChange({ name });
 
     closeSettingsModalHandler();
     setIsLoading(false);
