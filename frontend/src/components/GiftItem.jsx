@@ -23,7 +23,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import AddIcon from "@mui/icons-material/Add";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 
-import giftImage from "../static/giftListPlaceholder.png";
+import giftImagePlaceholder from "../static/giftListPlaceholder.png";
 
 import classes from "./GiftItem.module.css";
 
@@ -98,11 +98,15 @@ const GiftItem = ({ gift, setGifts }) => {
         className={classes.gift}
       >
         <div className={classes["gift-content"]}>
-          <div className={classes["image-container"]}>
+          <div
+            className={`${classes["image-container"]} ${
+              !gift.imageLink && classes["image-placeholder"]
+            }`}
+          >
             <CardMedia
               component="img"
               sx={{ objectFit: "contain" }}
-              src={gift.imageLink || giftImage}
+              src={gift.imageLink || giftImagePlaceholder}
               alt="gift image"
             />
           </div>

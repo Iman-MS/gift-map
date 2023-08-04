@@ -15,7 +15,12 @@
   justify-content: center;
   height: 100%;
   width: 10rem;
-  margin-right: 2rem;
+  padding: 0.5rem;
+  margin-right: 1rem;
+}
+
+.image-placeholder {
+  padding: 1rem;
 }
 
 .gift-text-container {
