@@ -22,8 +22,8 @@ import classes from "./GiftActions.module.css";
 const GiftActions = ({
   gift,
   setGifts,
-  isGiftManipulationShown,
-  isAddToMyListShown,
+  isGiftEditOrDeleteButtonShown,
+  isAddToMyListButtonShown,
 }) => {
   const [isDelete, setIsDelete] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -82,7 +82,7 @@ const GiftActions = ({
       <Typography
         sx={{ mr: "1rem", width: "70px" }}
       >{`$${gift.price}`}</Typography>
-      {isGiftManipulationShown && (
+      {isGiftEditOrDeleteButtonShown && (
         <>
           <IconButton aria-label="edit" size="large" onClick={editClickHandler}>
             <EditIcon />
@@ -113,7 +113,7 @@ const GiftActions = ({
           )}
         </>
       )}
-      {isAddToMyListShown && (
+      {isAddToMyListButtonShown && (
         <>
           <Tooltip
             arrow

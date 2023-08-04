@@ -36,8 +36,8 @@ const GiftItem = ({ gift, setGifts }) => {
         <GiftActions
           gift={gift}
           setGifts={setGifts}
-          isGiftManipulationShown={!userID}
-          isAddToMyListShown={userID && authCtx.isLoggedIn}
+          isGiftEditOrDeleteButtonShown={!userID}
+          isAddToMyListButtonShown={userID && authCtx.isLoggedIn}
         />
       </Card>
     </div>
