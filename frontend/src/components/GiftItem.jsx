@@ -3,11 +3,11 @@ import React, { useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 
 import AuthContext from "../contexts/auth-context";
+
+import GiftContent from "./GiftContent";
 import GiftForm from "./GiftForm";
 
 import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
@@ -23,8 +23,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import AddIcon from "@mui/icons-material/Add";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 
-import giftImagePlaceholder from "../static/giftListPlaceholder.png";
-
 import classes from "./GiftItem.module.css";
 
 const GiftItem = ({ gift, setGifts }) => {
@@ -35,12 +33,6 @@ const GiftItem = ({ gift, setGifts }) => {
   const authCtx = useContext(AuthContext);
 
   const { userID } = useParams();
-
-  const stringShortener = (str, length) => {
-    if (str.length <= length) return str;
-
-    return str.slice(0, length - 3) + "...";
-  };
 
   const deleteButtonHandler = () => {
     setIsDelete(true);
@@ -103,46 +95,11 @@ const GiftItem = ({ gift, setGifts }) => {
         }}
         className={classes.gift}
       >
-        <div className={classes["gift-content"]}>
-          <div
-            className={`${classes["image-container"]} ${
-              !gift.imageLink && classes["image-placeholder"]
-            }`}
-          >
-            <CardMedia
-              component="img"
-              sx={{ objectFit: "contain" }}
-              src={gift.imageLink || giftImagePlaceholder}
-              alt="gift image"
-            />
-          </div>
-          <div className={classes["gift-text-container"]}>
-            <CardContent>
-              <Tooltip
-                arrow
-                TransitionComponent={Zoom}
-                placement="top-start"
-                title={gift.title}
-              >
-                <Typography gutterBottom variant="h5" component="div">
-                  {stringShortener(gift.title, 50)}
-                </Typography>
-              </Tooltip>
-              {gift.description && (
-                <Tooltip
-                  arrow
-                  TransitionComponent={Zoom}
-                  placement="bottom-end"
-                  title={gift.description}
-                >
-                  <Typography variant="body2" color="text.secondary">
-                    {stringShortener(gift.description, 150)}
-                  </Typography>
-                </Tooltip>
-              )}
-            </CardContent>
-          </div>
-        </div>
+        <GiftContent
+          imageLink={gift.imageLink}
+          title={gift.title}
+          description={gift.description}
+        />
         <div className={classes["gift-actions"]}>
           <Typography
             sx={{ mr: "1rem", width: "70px" }}
