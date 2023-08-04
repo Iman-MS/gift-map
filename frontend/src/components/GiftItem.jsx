@@ -36,6 +36,12 @@ const GiftItem = ({ gift, setGifts }) => {
 
   const { userID } = useParams();
 
+  const stringShortener = (str, length) => {
+    if (str.length <= length) return str;
+
+    return str.slice(0, length - 3) + "...";
+  };
+
   const deleteButtonHandler = () => {
     setIsDelete(true);
   };
@@ -112,13 +118,27 @@ const GiftItem = ({ gift, setGifts }) => {
           </div>
           <div className={classes["gift-text-container"]}>
             <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                {gift.title}
-              </Typography>
-              {gift.description && (
-                <Typography variant="body2" color="text.secondary">
-                  {gift.description}
+              <Tooltip
+                arrow
+                TransitionComponent={Zoom}
+                placement="top-start"
+                title={gift.title}
+              >
+                <Typography gutterBottom variant="h5" component="div">
+                  {stringShortener(gift.title, 50)}
                 </Typography>
+              </Tooltip>
+              {gift.description && (
+                <Tooltip
+                  arrow
+                  TransitionComponent={Zoom}
+                  placement="bottom-end"
+                  title={gift.description}
+                >
+                  <Typography variant="body2" color="text.secondary">
+                    {stringShortener(gift.description, 150)}
+                  </Typography>
+                </Tooltip>
               )}
             </CardContent>
           </div>
