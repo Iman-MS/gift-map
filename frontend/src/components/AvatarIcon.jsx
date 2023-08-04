@@ -4,9 +4,12 @@ import { useNavigate } from "react-router-dom";
 
 import AuthContext from "../contexts/auth-context";
 
+import SettingsModalForm from "./SettingsModalForm";
+
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Divider from "@mui/material/Divider";
+import Modal from "@mui/material/Modal";
 
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
@@ -15,6 +18,8 @@ import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 
 const AvatarIcon = () => {
+  const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
+
   const authCtx = useContext(AuthContext);
 
   const navigate = useNavigate();
@@ -48,6 +53,10 @@ const AvatarIcon = () => {
     authCtx.onLogout();
 
     navigate("/");
+  };
+
+  const closeSettingsModalHandler = () => {
+    setIsSettingsModalOpen(false);
   };
 
   return (
@@ -100,7 +109,7 @@ const AvatarIcon = () => {
           <Avatar /> Profile
         </MenuItem>
         <Divider />
-        <MenuItem>
+        <MenuItem onClick={() => setIsSettingsModalOpen(true)}>
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
@@ -113,6 +122,18 @@ const AvatarIcon = () => {
           Logout
         </MenuItem>
       </Menu>
+      <Modal
+        onClose={closeSettingsModalHandler}
+        open={isSettingsModalOpen}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <div>
+          <SettingsModalForm
+            closeSettingsModalHandler={closeSettingsModalHandler}
+          />
+        </div>
+      </Modal>
     </>
   );
 };
