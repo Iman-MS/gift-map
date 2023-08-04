@@ -95,7 +95,7 @@ const GiftItem = ({ gift, setGifts }) => {
     <div className={classes["card-shadow"]}>
       <Card
         sx={{
-          width: "50rem",
+          width: "52rem",
           height: "10rem",
           padding: "0.5rem",
           boxShadow: "none",
@@ -144,7 +144,9 @@ const GiftItem = ({ gift, setGifts }) => {
           </div>
         </div>
         <div className={classes["gift-actions"]}>
-          <Typography sx={{ mr: "1rem" }}>{`$${gift.price}`}</Typography>
+          <Typography
+            sx={{ mr: "1rem", width: "70px" }}
+          >{`$${gift.price}`}</Typography>
           {!userID && (
             <>
               <IconButton
