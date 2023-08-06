@@ -21,7 +21,7 @@ const ProfileContent = ({ isRecentlyAddedGiftsPage = false }) => {
   return (
     <div className={classes.container}>
       <div className={classes.content}>
-        {!userID && (
+        {!userID && !isRecentlyAddedGiftsPage && (
           <div className={classes["add-icon"]}>
             <AddIconButton setGifts={setGifts} />
           </div>
