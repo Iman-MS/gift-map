@@ -8,6 +8,7 @@ import SearchUser from "./SearchUser";
 import AvatarIcon from "./AvatarIcon";
 import LoginButton from "./LoginButton";
 import SignUpButton from "./SignUpButton";
+import RecentlyAddedGifts from "./RecentlyAddedGiftsButton";
 
 import MUILink from "@mui/material/Link";
 
@@ -36,6 +37,7 @@ const ProfileNavigaion = () => {
       </div>
       <SearchUser />
       <div className={classes["profile-icon"]}>
+        <RecentlyAddedGifts />
         {authCtx.isLoggedIn ? (
           <AvatarIcon />
         ) : (
