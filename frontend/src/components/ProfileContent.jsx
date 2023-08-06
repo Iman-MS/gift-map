@@ -7,7 +7,7 @@ import GiftList from "./GiftList";
 
 import classes from "./ProfileContent.module.css";
 
-const ProfileContent = () => {
+const ProfileContent = ({ isRecentlyAddedGiftsPage = false }) => {
   const loaderData = useLoaderData();
 
   const [gifts, setGifts] = useState(loaderData);
@@ -26,7 +26,13 @@ const ProfileContent = () => {
             <AddIconButton setGifts={setGifts} />
           </div>
         )}
-        {gifts && <GiftList gifts={gifts} setGifts={setGifts} />}
+        {gifts && (
+          <GiftList
+            gifts={gifts}
+            setGifts={setGifts}
+            isRecentlyAddedGiftsPage={isRecentlyAddedGiftsPage}
+          />
+        )}
       </div>
     </div>
   );

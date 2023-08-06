@@ -3,7 +3,7 @@ import React from "react";
 import ProfileContent from "../components/ProfileContent";
 
 const RecentlyAddedGiftsPage = () => {
-  return <ProfileContent />;
+  return <ProfileContent isRecentlyAddedGiftsPage={true} />;
 };
 
 export default RecentlyAddedGiftsPage;

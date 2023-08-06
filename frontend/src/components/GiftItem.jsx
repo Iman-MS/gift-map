@@ -11,7 +11,7 @@ import Card from "@mui/material/Card";
 
 import classes from "./GiftItem.module.css";
 
-const GiftItem = ({ gift, setGifts }) => {
+const GiftItem = ({ gift, setGifts, isRecentlyAddedGiftsPage }) => {
   const authCtx = useContext(AuthContext);
 
   const { userID } = useParams();
@@ -36,8 +36,14 @@ const GiftItem = ({ gift, setGifts }) => {
         <GiftActions
           gift={gift}
           setGifts={setGifts}
-          isGiftEditOrDeleteButtonShown={!userID}
-          isAddToMyListButtonShown={userID && authCtx.isLoggedIn}
+          isGiftEditOrDeleteButtonShown={
+            isRecentlyAddedGiftsPage ? false : !userID
+          }
+          isAddToMyListButtonShown={
+            isRecentlyAddedGiftsPage
+              ? authCtx.isLoggedIn
+              : userID && authCtx.isLoggedIn
+          }
         />
       </Card>
     </div>
