@@ -9,6 +9,8 @@
   border-radius: 2rem;
   box-shadow: 24;
   padding: 3rem 3rem;
+  max-height: 80vh;
+  overflow-y: auto;
 }
 
 .form {

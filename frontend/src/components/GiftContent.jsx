@@ -51,7 +51,7 @@ const GiftContent = ({ imageLink, title, description }) => {
               title={description}
             >
               <Typography variant="body2" color="text.secondary">
-                {stringShortener(description, 150)}
+                {stringShortener(description, 100)}
               </Typography>
             </Tooltip>
           )}

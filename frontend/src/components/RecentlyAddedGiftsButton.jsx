@@ -13,7 +13,7 @@ const RecentlyAddedGifts = () => {
         to="/recently-added-gifts"
         sx={{ fontSize: "1.1rem", margin: "1rem" }}
       >
-        recently added gifts
+        Recently Added Gifts
       </Button>
     </>
   );
