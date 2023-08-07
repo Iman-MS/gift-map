@@ -2,7 +2,7 @@ import React from "react";
 
 import { Outlet, useNavigation } from "react-router-dom";
 
-import ProfileNavigaion from "../components/ProfileNavigation";
+import ProfileNavigation from "../components/ProfileNavigation";
 import Loading from "../components/Loading";
 
 const ProfileLayout = () => {
@@ -10,9 +10,10 @@ const ProfileLayout = () => {
 
   return (
     <>
-      <ProfileNavigaion />
+      <ProfileNavigation />
       <main>
-        {navigation.state === "loading" && <Loading />}
+        {/* {navigation.state === "loading" && <Loading />} */}
+        {/* {true && <Loading />} */}
         <Outlet />
       </main>
     </>
