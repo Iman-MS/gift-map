@@ -46,7 +46,7 @@ const LoginForm = () => {
 
     setIsLoading(true);
 
-    const response = await fetch("http://localhost:5000/api/v1/auth/login", {
+    const response = await fetch("/api/v1/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -76,8 +76,7 @@ const LoginForm = () => {
             sx={{
               margin: "1rem",
               backgroundColor: "secondary.main",
-            }}
-          >
+            }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -117,8 +116,7 @@ const LoginForm = () => {
               fullWidth
               variant="contained"
               color="primary"
-              className={classes.submit}
-            >
+              className={classes.submit}>
               Sign In
             </Button>
             {/* error */}
@@ -128,13 +126,11 @@ const LoginForm = () => {
                 direction="column"
                 justify="center"
                 alignItems="center"
-                style={{ marginBottom: ".5rem" }}
-              >
+                style={{ marginBottom: ".5rem" }}>
                 <Alert
                   severity="error"
                   variant="outlined"
-                  style={{ backgroundColor: "#ff000012" }}
-                >
+                  style={{ backgroundColor: "#ff000012" }}>
                   <AlertTitle>Error</AlertTitle>
                   Invalid credentials
                 </Alert>
@@ -146,8 +142,7 @@ const LoginForm = () => {
                 container
                 direction="column"
                 justify="center"
-                alignItems="center"
-              >
+                alignItems="center">
                 <CircularProgress></CircularProgress>
               </Grid>
             )}
@@ -158,8 +153,7 @@ const LoginForm = () => {
                   color="primary"
                   component={RouterLink}
                   to="/signup"
-                  sx={{ mt: "1rem" }}
-                >
+                  sx={{ mt: "1rem" }}>
                   Don't have an account? Sign Up
                 </Button>
               </Grid>

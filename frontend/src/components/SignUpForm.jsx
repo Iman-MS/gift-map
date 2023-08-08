@@ -78,20 +78,17 @@ const SignUpForm = () => {
 
     if (formIsValid) {
       try {
-        const response = await fetch(
-          "http://localhost:5000/api/v1/auth/register",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              name: name,
-              email: email,
-              password: password,
-            }),
-          }
-        );
+        const response = await fetch("/api/v1/auth/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            password: password,
+          }),
+        });
         const data = await response.json();
 
         if (!response.ok) {
@@ -116,8 +113,7 @@ const SignUpForm = () => {
             sx={{
               margin: "1rem",
               backgroundColor: "secondary.main",
-            }}
-          >
+            }}>
             <RedeemIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -178,8 +174,7 @@ const SignUpForm = () => {
               variant="contained"
               color="primary"
               disabled={formIsValid ? false : true}
-              className={classes.submit}
-            >
+              className={classes.submit}>
               Sign Up
             </Button>
             {/* error */}
@@ -189,13 +184,11 @@ const SignUpForm = () => {
                 direction="column"
                 justify="center"
                 alignItems="center"
-                style={{ marginBottom: ".5rem" }}
-              >
+                style={{ marginBottom: ".5rem" }}>
                 <Alert
                   severity="error"
                   variant="outlined"
-                  style={{ backgroundColor: "#ff000012" }}
-                >
+                  style={{ backgroundColor: "#ff000012" }}>
                   <AlertTitle>Error</AlertTitle>
                   {errorMessage}
                 </Alert>
@@ -207,8 +200,7 @@ const SignUpForm = () => {
                 container
                 direction="column"
                 justify="center"
-                alignItems="center"
-              >
+                alignItems="center">
                 <CircularProgress></CircularProgress>
               </Grid>
             )}
@@ -219,8 +211,7 @@ const SignUpForm = () => {
                   color="primary"
                   component={RouterLink}
                   to="/login"
-                  sx={{ mt: "1rem" }}
-                >
+                  sx={{ mt: "1rem" }}>
                   Already have an account? Sign In
                 </Button>
               </Grid>
