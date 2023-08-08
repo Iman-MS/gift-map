@@ -11,9 +11,8 @@ const ProfileLayout = () => {
   return (
     <>
       <ProfileNavigation />
-      <main>
-        {/* {navigation.state === "loading" && <Loading />} */}
-        {/* {true && <Loading />} */}
+      <main style={{ position: "relative" }}>
+        {navigation.state === "loading" && <Loading />}
         <Outlet />
       </main>
     </>
