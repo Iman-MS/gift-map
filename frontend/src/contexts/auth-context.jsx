@@ -15,18 +15,13 @@ export const AuthContextProvider = (props) => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      try {
-        const response = await fetch("/api/v1/auth/me");
-        const responseData = await response.json();
+      const response = await fetch("/api/v1/auth/me");
+      const responseData = await response.json();
 
-        if (response.ok) {
-          setIsLoggedIn(true);
-          setUser(responseData.data);
-        } else {
-          throw new Error("User is not logged in");
-        }
-      } catch (error) {
-        console.log(error);
+      if (response.ok) {
+        setIsLoggedIn(true);
+        setUser(responseData.data);
+      } else {
         setIsLoggedIn(false);
         setUser(null);
       }
