@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 
-import Cookies from "js-cookie";
-
 const AuthContext = React.createContext({
   isLoggedIn: false,
   user: null,
@@ -11,35 +9,37 @@ const AuthContext = React.createContext({
 });
 
 export const AuthContextProvider = (props) => {
-  const [token, setToken] = useState(Cookies.get("frontend-token"));
+  const [token, setToken] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
 
   useEffect(() => {
     const fetchUser = async () => {
-      if (token) {
+      try {
         const response = await fetch("/api/v1/auth/me");
         const responseData = await response.json();
-        setUser(responseData.data);
-        setIsLoggedIn(true);
-      } else {
+
+        if (response.ok) {
+          setIsLoggedIn(true);
+          setUser(responseData.data);
+        } else {
+          throw new Error("User is not logged in");
+        }
+      } catch (error) {
+        console.log(error);
         setIsLoggedIn(false);
         setUser(null);
       }
     };
     fetchUser();
-  }, [token, user]);
+  }, [token]);
 
   const loginHandler = async (token) => {
-    setIsLoggedIn(true);
-
-    Cookies.set("frontend-token", token);
     setToken(token);
   };
 
   const logoutHandler = () => {
     setToken(null);
-    Cookies.remove("frontend-token");
     fetch("/api/v1/auth/logout");
   };
 
