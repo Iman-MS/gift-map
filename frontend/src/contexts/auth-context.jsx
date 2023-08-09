@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { useCookies } from "react-cookie";
+import Cookies from "js-cookie";
 
 const AuthContext = React.createContext({
   isLoggedIn: false,
@@ -11,37 +11,36 @@ const AuthContext = React.createContext({
 });
 
 export const AuthContextProvider = (props) => {
+  const [token, setToken] = useState(Cookies.get("frontend-token"));
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
 
-  const [cookie, setCookie, removeCookie] = useCookies();
-
   useEffect(() => {
     const fetchUser = async () => {
-      if (cookie.token) {
+      if (token) {
         const response = await fetch("/api/v1/auth/me");
         const responseData = await response.json();
         setUser(responseData.data);
         setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+        setUser(null);
       }
     };
     fetchUser();
-  }, [cookie]);
+  }, [token, user]);
 
   const loginHandler = async (token) => {
     setIsLoggedIn(true);
 
-    setCookie("token", token, { path: "/" });
-
-    // const response = await fetch("/api/v1/auth/me");
-    // const responseData = await response.json();
-    // setUser(responseData.data);
+    Cookies.set("frontend-token", token);
+    setToken(token);
   };
 
   const logoutHandler = () => {
-    setIsLoggedIn(false);
-    setUser(null);
-    removeCookie("token", { path: "/" });
+    setToken(null);
+    Cookies.remove("frontend-token");
+    fetch("/api/v1/auth/logout");
   };
 
   const userNameChangeHandler = async (body) => {
