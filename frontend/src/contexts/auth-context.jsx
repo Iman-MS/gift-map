@@ -29,7 +29,7 @@ export const AuthContextProvider = (props) => {
     fetchUser();
   }, []);
 
-  const loginHandler = async (token) => {
+  const loginHandler = async () => {
     fetchUser();
   };
 

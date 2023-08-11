@@ -60,7 +60,7 @@ const LoginForm = () => {
 
     if (!responseData.success) setIsError(true);
     else {
-      authCtx.onLogin(responseData.token);
+      authCtx.onLogin();
       navigate("/profile");
     }
 
