@@ -9,32 +9,32 @@ const AuthContext = React.createContext({
 });
 
 export const AuthContextProvider = (props) => {
-  const [token, setToken] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      const response = await fetch("/api/v1/auth/me");
-      const responseData = await response.json();
+  const fetchUser = async () => {
+    const response = await fetch("/api/v1/auth/me");
+    const responseData = await response.json();
 
-      if (response.ok) {
-        setIsLoggedIn(true);
-        setUser(responseData.data);
-      } else {
-        setIsLoggedIn(false);
-        setUser(null);
-      }
-    };
+    if (response.ok) {
+      setIsLoggedIn(true);
+      setUser(responseData.data);
+    } else {
+      setIsLoggedIn(false);
+      setUser(null);
+    }
+  };
+
+  useEffect(() => {
     fetchUser();
-  }, [token]);
+  }, []);
 
   const loginHandler = async (token) => {
-    setToken(token);
+    fetchUser();
   };
 
   const logoutHandler = () => {
-    setToken(null);
+    fetchUser();
     fetch("/api/v1/auth/logout");
   };
 
