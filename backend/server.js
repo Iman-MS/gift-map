@@ -89,8 +89,11 @@ app.use(errorHandler);
 app.use(express.static(path.join(__dirname, "..", "frontend", "build")));
 
 // being able to use react app routes
+// app.use((req, res, next) => {
+//   res.sendFile(path.join(__dirname, "..", "frontend", "build", "index.html"));
+// });
 app.use((req, res, next) => {
-  res.sendFile(path.join(__dirname, "..", "frontend", "build", "index.html"));
+  res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
 const PORT = process.env.PORT || 5000;
