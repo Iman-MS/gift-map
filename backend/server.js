@@ -86,18 +86,18 @@ app.use("/api/v1/auth", auth);
 app.use(errorHandler);
 
 // running built react app from backend
-app.use(express.static(path.join(__dirname, "..", "frontend", "build")));
+// app.use(express.static(path.join(__dirname, "..", "frontend", "build")));
 // using the build folder if it is in the backend folder
-// app.use(express.static(path.join(__dirname, "build")));
+app.use(express.static(path.join(__dirname, "build")));
 
 // being able to use react app routes
-app.use((req, res, next) => {
-  res.sendFile(path.join(__dirname, "..", "frontend", "build", "index.html"));
-});
-// using the build folder if it is in the backend folder
 // app.use((req, res, next) => {
-//   res.sendFile(path.join(__dirname, "build", "index.html"));
+//   res.sendFile(path.join(__dirname, "..", "frontend", "build", "index.html"));
 // });
+//using the build folder if it is in the backend folder
+app.use((req, res, next) => {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
 
 const PORT = process.env.PORT || 5000;
 
