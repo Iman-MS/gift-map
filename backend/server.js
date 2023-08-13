@@ -86,7 +86,8 @@ app.use("/api/v1/auth", auth);
 app.use(errorHandler);
 
 // running built react app from backend
-app.use(express.static(path.join(__dirname, "..", "frontend", "build")));
+// app.use(express.static(path.join(__dirname, "..", "frontend", "build")));
+app.use(express.static(path.join(__dirname, "build")));
 
 // being able to use react app routes
 // app.use((req, res, next) => {
