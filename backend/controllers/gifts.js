@@ -3,7 +3,7 @@ import path from "path";
 import Gift from "../models/Gift.js";
 import User from "../models/User.js";
 
-import ErrorResponse from "../utils/errorResponse.js";
+import ErrorResponse from "../utils/ErrorResponse.js";
 
 import asyncHandler from "../middleware/async.js";
 
