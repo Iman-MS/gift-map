@@ -7,12 +7,17 @@
   justify-content: space-between;
   align-items: center;
   z-index: 999;
-  background-color: white;
+  background-color: #f8f8f8;
+}
+
+.logo-content {
+  display: flex;
+  flex-direction: row;
+  margin-left: 0.5rem;
 }
 
 .logo {
-  height: 4.5rem;
-  padding-top: 0.5rem;
+  height: 3.4rem;
 }
 
 .profile-icon {

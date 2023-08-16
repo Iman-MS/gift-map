@@ -25,6 +25,8 @@ const GiftItem = ({ gift, setGifts, isRecentlyAddedGiftsPage }) => {
           padding: "0.5rem",
           boxShadow: "none",
           borderRadius: "1.5rem",
+          position: "relative",
+          zIndex: "1",
         }}
         className={classes.gift}
       >

@@ -8,7 +8,12 @@
   align-items: center;
 }
 
+.logo-content {
+  display: flex;
+  flex-direction: row;
+  margin-left: 0.5rem;
+}
+
 .logo {
-  height: 4.5rem;
-  padding-top: 0.5rem;
+  height: 3.4rem;
 }

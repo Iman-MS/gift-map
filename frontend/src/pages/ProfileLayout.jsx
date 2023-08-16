@@ -10,7 +10,13 @@ const ProfileLayout = () => {
 
   return (
     <>
-      <main style={{ position: "relative" }}>
+      <main
+        style={{
+          position: "relative",
+          backgroundColor: "#f8f8f8",
+          minHeight: "100vh",
+        }}
+      >
         <ProfileNavigation />
         {navigation.state === "loading" && <Loading />}
         <Outlet />
