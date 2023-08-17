@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import Modal from "@mui/material/Modal";
 
-import AddIcon from "@mui/icons-material/Add";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 import GiftForm from "./GiftForm";
 
@@ -26,7 +26,7 @@ const AddIconButton = ({ setGifts }) => {
         size="large"
         onClick={addClickHandler}
       >
-        <AddIcon color="primary" sx={{ fontSize: "2rem" }} />
+        <AddCircleIcon color="primary" sx={{ fontSize: "3rem" }} />
       </IconButton>
       <Modal
         onClose={closeModalHandler}

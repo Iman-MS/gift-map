@@ -26,7 +26,7 @@ const GiftContent = ({ imageLink, title, description }) => {
       >
         <CardMedia
           component="img"
-          sx={{ objectFit: "contain" }}
+          sx={{ height: "8rem", objectFit: "contain" }}
           src={imageLink || giftImagePlaceholder}
           alt="gift image"
         />

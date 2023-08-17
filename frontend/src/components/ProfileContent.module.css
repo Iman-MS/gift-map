@@ -10,6 +10,17 @@
 }
 
 .add-icon {
-  display: flex;
-  justify-content: flex-end;
+  /* display: flex;
+  justify-content: flex-end; */
+  bottom: 3rem;
+  right: 5rem;
+  position: fixed;
+  z-index: 2;
+}
+
+@media (max-width: 700px) {
+  .add-icon {
+    bottom: 1rem;
+    right: 1rem;
+  }
 }

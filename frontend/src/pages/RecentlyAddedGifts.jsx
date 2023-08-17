@@ -12,5 +12,5 @@ export const loader = async () => {
   const response = await fetch("/api/v1/gifts/all?limit=15");
   const responseData = await response.json();
 
-  return responseData.data;
+  return { gifts: responseData.data };
 };

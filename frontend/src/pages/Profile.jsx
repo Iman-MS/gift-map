@@ -13,15 +13,20 @@ const ProfilePage = () => {
 export default ProfilePage;
 
 export const loader = async ({ params }) => {
-  let response;
-
   if (params.userID) {
-    response = await fetch(`/api/v1/users/${params.userID}/gifts/all`);
+    const userResponse = await fetch(`/api/v1/users/${params.userID}`);
+    const userResponseData = await userResponse.json();
+
+    const giftsResponse = await fetch(
+      `/api/v1/users/${params.userID}/gifts/all`
+    );
+    const giftsResponseData = await giftsResponse.json();
+
+    return { user: userResponseData.data, gifts: giftsResponseData.data };
   } else {
-    response = await fetch(`/api/v1/gifts`);
+    const giftsResponse = await fetch(`/api/v1/gifts`);
+    const giftsResponseData = await giftsResponse.json();
+
+    return { gifts: giftsResponseData.data };
   }
-
-  const responseData = await response.json();
-
-  return responseData.data;
 };

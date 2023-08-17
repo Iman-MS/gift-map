@@ -50,6 +50,24 @@ export const getUser = asyncHandler(async (req, res, next) => {
   });
 });
 
+// @desc   gets a single user based on the userId
+// @route  GET /api/v1/users/:userId
+// @access Public
+export const getSingleUser = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.params.userId);
+
+  //if it is correctly formatted id but it is not in the database it will result enter this if block(we dont want to send a response with a true success and data being null in this case)
+  if (!user)
+    return next(
+      new ErrorResponse(`User not found with id of ${req.params.userId}`, 404)
+    );
+
+  res.status(200).json({
+    success: true,
+    data: user,
+  });
+});
+
 // @desc   create a new user
 // @route  POST /api/v1/users/
 // @access Public

@@ -1,6 +1,6 @@
 .gift {
   width: 52rem;
-  height: 10rem;
+  /* height: 10rem; */
   display: flex;
   /* margin: 2.5rem 0; */
   justify-content: space-between;
@@ -53,7 +53,7 @@
 @media (max-width: 700px) {
   .gift {
     width: 20rem;
-    height: 12rem;
+    /* height: 12rem; */
     flex-direction: column;
   }
 }
