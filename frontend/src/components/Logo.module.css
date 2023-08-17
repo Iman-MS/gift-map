@@ -1,0 +1,9 @@
+.logo-content {
+  display: flex;
+  flex-direction: row;
+  margin-left: 0.5rem;
+}
+
+.logo {
+  height: 3.4rem;
+}

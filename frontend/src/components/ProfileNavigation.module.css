@@ -10,16 +10,6 @@
   background-color: #f8f8f8;
 }
 
-.logo-content {
-  display: flex;
-  flex-direction: row;
-  margin-left: 0.5rem;
-}
-
-.logo {
-  height: 3.4rem;
-}
-
 .profile-icon {
   margin-right: 2rem;
   margin-top: 1rem;

@@ -33,9 +33,9 @@ export const AuthContextProvider = (props) => {
     fetchUser();
   };
 
-  const logoutHandler = () => {
+  const logoutHandler = async () => {
+    await fetch("/api/v1/auth/logout");
     fetchUser();
-    fetch("/api/v1/auth/logout");
   };
 
   const userNameChangeHandler = async (body) => {
