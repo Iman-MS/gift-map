@@ -20,8 +20,8 @@ const GiftItem = ({ gift, setGifts, isRecentlyAddedGiftsPage }) => {
     <div className={classes["card-shadow"]}>
       <Card
         sx={{
-          width: "52rem",
-          height: "10rem",
+          // width: "52rem",
+          // height: "10rem",
           padding: "0.5rem",
           boxShadow: "none",
           borderRadius: "1.5rem",

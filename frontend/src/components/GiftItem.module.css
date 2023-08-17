@@ -1,4 +1,6 @@
 .gift {
+  width: 52rem;
+  height: 10rem;
   display: flex;
   /* margin: 2.5rem 0; */
   justify-content: space-between;
