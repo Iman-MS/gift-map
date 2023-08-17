@@ -9,6 +9,7 @@
   z-index: 999;
   background-color: #f4edfd;
   transition: 0.2s;
+  padding-top: 1rem;
 }
 
 .nav-shadow {
@@ -21,7 +22,7 @@
 }
 
 @media (max-width: 700px) {
-  .nav {
-    flex-direction: column;
+  .profile-icon {
+    margin-right: 1rem;
   }
 }

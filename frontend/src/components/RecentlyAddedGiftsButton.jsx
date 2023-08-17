@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import Button from "@mui/material/Button";
 
-const RecentlyAddedGifts = () => {
+const RecentlyAddedGiftsButton = () => {
   return (
     <>
       <Button
@@ -19,4 +19,4 @@ const RecentlyAddedGifts = () => {
   );
 };
 
-export default RecentlyAddedGifts;
+export default RecentlyAddedGiftsButton;

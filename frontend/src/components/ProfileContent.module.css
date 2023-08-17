@@ -18,6 +18,26 @@
   z-index: 2;
 }
 
+.title-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+
+.title {
+  width: fit-content;
+}
+
+.divider {
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    rgba(115, 29, 216, 0.4598214285714286) 0%,
+    rgba(12, 202, 74, 0.5494572829131652) 100%
+  );
+}
+
 @media (max-width: 700px) {
   .add-icon {
     bottom: 1rem;

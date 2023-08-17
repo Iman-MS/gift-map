@@ -19,14 +19,10 @@ const GiftContent = ({ imageLink, title, description }) => {
 
   return (
     <div className={classes["gift-content"]}>
-      <div
-        className={`${classes["image-container"]} ${
-          !imageLink && classes["image-placeholder"]
-        }`}
-      >
+      <div className={classes["image-container"]}>
         <CardMedia
           component="img"
-          sx={{ height: "8rem", objectFit: "contain" }}
+          sx={{ objectFit: "contain" }}
           src={imageLink || giftImagePlaceholder}
           alt="gift image"
         />

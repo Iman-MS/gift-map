@@ -4,6 +4,7 @@ import { useLoaderData, useParams } from "react-router-dom";
 
 import Typography from "@mui/material/Typography";
 
+import RecentlyAddedGiftsButton from "./RecentlyAddedGiftsButton";
 import AddIconButton from "./AddIconButton";
 import GiftList from "./GiftList";
 
@@ -28,15 +29,29 @@ const ProfileContent = ({ isRecentlyAddedGiftsPage = false }) => {
             <AddIconButton setGifts={setGifts} />
           </div>
         )}
-        {isRecentlyAddedGiftsPage ? (
-          <Typography variant="h3" color="primary" sx={{ mb: "2rem" }}>
-            Recently Added Gifts
-          </Typography>
-        ) : (
-          <Typography variant="h3" color="primary" sx={{ mb: "2rem" }}>
-            {`${userID ? `${loaderData.user.name}'s` : "My"} Gifts`}
-          </Typography>
-        )}
+        <div className={classes["title-container"]}>
+          <div className={classes.title}>
+            {isRecentlyAddedGiftsPage ? (
+              <Typography
+                variant="h3"
+                color="text"
+                sx={{ mb: "0.5rem", fontWeight: "200" }}
+              >
+                Recently Added Gifts
+              </Typography>
+            ) : (
+              <Typography
+                variant="h3"
+                color="text"
+                sx={{ mb: "0.5rem", fontWeight: "200" }}
+              >
+                {`${userID ? `${loaderData.user.name}'s` : "My"} Gifts`}
+              </Typography>
+            )}
+            <div className={classes.divider}></div>
+          </div>
+          <RecentlyAddedGiftsButton />
+        </div>
         {gifts && (
           <GiftList
             gifts={gifts}
