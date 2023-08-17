@@ -13,7 +13,7 @@ const ProfileLayout = () => {
       <main
         style={{
           position: "relative",
-          backgroundColor: "#f8f8f8",
+          backgroundColor: "#F4EDFD",
           minHeight: "100vh",
         }}
       >

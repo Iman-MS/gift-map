@@ -15,11 +15,11 @@ const Logo = () => {
   const authCtx = useContext(AuthContext);
 
   return (
-    <div>
+    <div className={classes["logo-container"]}>
       <MUILink
         component={Link}
         to={`${authCtx.isLoggedIn ? "/profile" : "/"}`}
-        sx={{ fontSize: "1.1rem", margin: "1rem", textDecoration: "none" }}
+        sx={{ fontSize: "1.1rem", textDecoration: "none" }}
       >
         <div className={classes["logo-content"]}>
           <img src={logo} alt="GiftMap Logo" className={classes.logo} />

@@ -1,3 +1,9 @@
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .logo-content {
   display: flex;
   flex-direction: row;

@@ -48,10 +48,11 @@ const SearchUser = () => {
           onChange={searchFiledChangeHandler}
           onFocus={showSearchResultHandler}
           id="standard-basic"
-          label="search users"
+          label="Search users"
           variant="outlined"
           color="primary"
           value={searchField}
+          size="small"
           sx={{ width: "20rem", mt: "0.5rem" }}
         />
         {isSearchedUsersShown && users && (

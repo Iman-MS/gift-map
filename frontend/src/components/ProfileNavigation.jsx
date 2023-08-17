@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 
 import AuthContext from "../contexts/auth-context";
 
@@ -12,10 +12,19 @@ import RecentlyAddedGifts from "./RecentlyAddedGiftsButton";
 import classes from "./ProfileNavigation.module.css";
 
 const ProfileNavigaion = () => {
+  const [hasScrolled, setHasScrolled] = useState(false);
   const authCtx = useContext(AuthContext);
 
+  window.onscroll = function () {
+    if (window.scrollY === 0) {
+      setHasScrolled(false);
+    } else {
+      setHasScrolled(true);
+    }
+  };
+
   return (
-    <div className={classes.nav}>
+    <div className={`${classes.nav} ${hasScrolled && classes["nav-shadow"]}`}>
       <Logo />
       <SearchUser />
       <div className={classes["profile-icon"]}>
