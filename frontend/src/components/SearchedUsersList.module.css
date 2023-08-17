@@ -3,4 +3,5 @@
   position: absolute;
   max-height: 224px;
   overflow-y: auto;
+  z-index: 1;
 }

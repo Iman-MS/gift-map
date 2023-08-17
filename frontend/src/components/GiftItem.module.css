@@ -47,3 +47,11 @@
   left: 0;
   background: inherit;
 } */
+
+@media (max-width: 700px) {
+  .gift {
+    width: 20rem;
+    height: 12rem;
+    flex-direction: column;
+  }
+}

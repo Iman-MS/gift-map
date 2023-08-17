@@ -10,7 +10,7 @@ const MainNavigation = () => {
   return (
     <div className={classes.nav}>
       <Logo />
-      <div>
+      <div className={classes["nav-buttons"]}>
         <LoginButton />
         <SignUpButton />
       </div>
