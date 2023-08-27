@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import { useLoaderData, useParams } from "react-router-dom";
 
-import Typography from "@mui/material/Typography";
+import AuthContext from "../contexts/auth-context";
 
+import Typography from "@mui/material/Typography";
+import ShareProfileButton from "./ShareProfileButton";
 import RecentlyAddedGiftsButton from "./RecentlyAddedGiftsButton";
 import AddIconButton from "./AddIconButton";
 import GiftList from "./GiftList";
@@ -18,6 +20,8 @@ const ProfileContent = ({ isRecentlyAddedGiftsPage = false }) => {
   useEffect(() => {
     setGifts(loaderData.gifts);
   }, [loaderData]);
+
+  const authCtx = useContext(AuthContext);
 
   const { userID } = useParams();
 
@@ -50,7 +54,10 @@ const ProfileContent = ({ isRecentlyAddedGiftsPage = false }) => {
             )}
             <div className={classes.divider}></div>
           </div>
-          <RecentlyAddedGiftsButton />
+          <div>
+            <ShareProfileButton userID={userID || authCtx.user.id} />
+            <RecentlyAddedGiftsButton />
+          </div>
         </div>
         {gifts && (
           <GiftList
