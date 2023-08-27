@@ -10,11 +10,6 @@ const SearchUser = () => {
   const [users, setUsers] = useState(null);
   const [searchField, setSearchField] = useState("");
   const [isSearchedUsersShown, setIsSearchedUsersShown] = useState(false);
-  const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
-
-  window.onresize = () => {
-    setViewportWidth(window.innerWidth);
-  };
 
   useEffect(() => {
     const identifier = setTimeout(async () => {
@@ -58,7 +53,10 @@ const SearchUser = () => {
           color="primary"
           value={searchField}
           size="small"
-          sx={{ width: viewportWidth <= 700 ? "12rem" : "20rem", mt: "0.5rem" }}
+          sx={{
+            width: window.innerWidth <= 700 ? "12rem" : "20rem",
+            mt: "0.5rem",
+          }}
         />
         {isSearchedUsersShown && users && (
           <SearchedUsersList
