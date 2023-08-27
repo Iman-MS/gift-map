@@ -1,0 +1,16 @@
+.icon-button {
+  background-color: #731dd8 !important;
+  box-shadow: rgba(101, 119, 134, 0.5) 0px 0px 8px,
+    rgba(101, 119, 134, 0.5) 0px 1px 3px 1px;
+  padding: 0.5rem !important;
+}
+
+.icon-button:hover {
+  background-color: #731dd8;
+}
+
+@media (max-width: 700px) {
+  .icon-button {
+    padding: 0.3rem !important;
+  }
+}

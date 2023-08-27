@@ -11,7 +11,10 @@ const RecentlyAddedGiftsButton = () => {
         variant="contained"
         component={Link}
         to="/recently-added-gifts"
-        sx={{ fontSize: "1.1rem", margin: "1rem" }}
+        sx={{
+          fontSize: "1.1rem",
+          margin: `${window.innerWidth <= 700 ? "0rem" : "1rem"}`,
+        }}
       >
         Recently Added Gifts
       </Button>

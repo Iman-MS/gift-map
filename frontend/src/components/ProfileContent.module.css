@@ -43,4 +43,21 @@
     bottom: 1rem;
     right: 1rem;
   }
+
+  .title-container {
+    flex-direction: column;
+  }
+
+  .divider {
+    margin-bottom: 2rem;
+  }
+
+  .container {
+    margin-top: 1rem;
+  }
+
+  .title {
+    align-self: flex-start;
+    margin-left: 2rem;
+  }
 }
