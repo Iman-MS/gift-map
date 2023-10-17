@@ -55,7 +55,9 @@ const ProfileContent = ({ isRecentlyAddedGiftsPage = false }) => {
             <div className={classes.divider}></div>
           </div>
           <div>
-            <ShareProfileButton userID={userID || authCtx.user.id} />
+            <ShareProfileButton
+              userID={userID || !authCtx.user || authCtx.user.id}
+            />
             <RecentlyAddedGiftsButton />
           </div>
         </div>

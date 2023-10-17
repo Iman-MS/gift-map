@@ -30,7 +30,7 @@ export const AuthContextProvider = (props) => {
   }, []);
 
   const loginHandler = async () => {
-    fetchUser();
+    await fetchUser();
   };
 
   const logoutHandler = async () => {
