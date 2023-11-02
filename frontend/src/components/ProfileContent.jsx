@@ -25,6 +25,11 @@ const ProfileContent = ({ isRecentlyAddedGiftsPage = false }) => {
 
   const { userID } = useParams();
 
+  const titleTextCSS = {
+    mb: "0.5rem",
+    fontWeight: "200",
+  };
+  if (window.innerWidth <= 700) titleTextCSS.fontSize = "2rem";
   return (
     <div className={classes.container}>
       <div className={classes.content}>
@@ -36,29 +41,19 @@ const ProfileContent = ({ isRecentlyAddedGiftsPage = false }) => {
         <div className={classes["title-container"]}>
           <div className={classes.title}>
             {isRecentlyAddedGiftsPage ? (
-              <Typography
-                variant="h3"
-                color="text"
-                sx={{ mb: "0.5rem", fontWeight: "200" }}
-              >
+              <Typography variant="h3" color="text" sx={titleTextCSS}>
                 Recently Added Gifts
               </Typography>
             ) : (
-              <Typography
-                variant="h3"
-                color="text"
-                sx={{ mb: "0.5rem", fontWeight: "200" }}
-              >
+              <Typography variant="h3" color="text" sx={titleTextCSS}>
                 {`${userID ? `${loaderData.user.name}'s` : "My"} Gifts`}
               </Typography>
             )}
             <div className={classes.divider}></div>
           </div>
           <div>
-            <ShareProfileButton
-              userID={userID || !authCtx.user || authCtx.user.id}
-            />
-            <RecentlyAddedGiftsButton />
+            <ShareProfileButton userID={userID || authCtx.user?.id} />
+            {!isRecentlyAddedGiftsPage && <RecentlyAddedGiftsButton />}
           </div>
         </div>
         {gifts && (
