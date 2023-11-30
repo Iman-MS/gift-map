@@ -29,6 +29,7 @@ connectDB();
 import users from "./routes/users.js";
 import gifts from "./routes/gifts.js";
 import auth from "./routes/auth.js";
+import scrapeProductDetails from "./routes/scrapeProductDetails.js";
 
 const app = express();
 
@@ -93,6 +94,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/api/v1/users", users);
 app.use("/api/v1/gifts", gifts);
 app.use("/api/v1/auth", auth);
+app.use("/api/v1/scrape-product-details", scrapeProductDetails);
 
 app.use(errorHandler);
 

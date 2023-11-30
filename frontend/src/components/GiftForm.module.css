@@ -20,6 +20,12 @@
   align-items: center;
 }
 
+.auto-complete-container {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
 .submit {
   margin: 3rem 0rem 2rem;
 }

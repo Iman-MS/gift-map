@@ -54,6 +54,12 @@ const GiftForm = ({
     setImageLink(event.target.value);
   };
 
+  const autoCompleteHandler = async () => {
+    setIsLoading(true);
+
+    setIsLoading(false);
+  };
+
   const formSubmitHandler = async (event) => {
     event.preventDefault();
 
@@ -151,18 +157,27 @@ const GiftForm = ({
                 id="price"
                 value={price}
               />
-              <TextField
-                onChange={linkChangeHandler}
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="link"
-                label="Link"
-                type="link"
-                id="link"
-                value={link}
-              />
+              <div className={classes["auto-complete-container"]}>
+                <TextField
+                  onChange={linkChangeHandler}
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="link"
+                  label="Link"
+                  type="link"
+                  id="link"
+                  value={link}
+                />
+                <Button
+                  variant="contained"
+                  size="small"
+                  onClick={autoCompleteHandler}
+                >
+                  Auto Complete
+                </Button>
+              </div>
               <TextField
                 onChange={imageLinkChangeHandler}
                 variant="outlined"
