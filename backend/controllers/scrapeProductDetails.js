@@ -1,9 +1,48 @@
 import OpenAI from "openai";
 import puppeteer from "puppeteer";
 
+// innerHTML
+// const asyncLoadPuppeteer = async (url) => {
+//   let results = "";
+//   const browser = await puppeteer.launch({ headless: true });
+
+//   try {
+//     const page = await browser.newPage();
+//     await page.goto(url);
+
+//     // Remove script, style, and noscript elements directly using Puppeteer
+//     await page.evaluate(() => {
+//       document
+//         .querySelectorAll("script, style, noscript")
+//         .forEach((el) => el.remove());
+
+//       document
+//         .querySelectorAll("*")
+//         .forEach((el) => el.removeAttribute("style"));
+//     });
+
+//     // Extract HTML
+//     results = await page.evaluate(() => document.body.textContent);
+
+//     results = results.replace(/\n+/g, "\n").replace(/ {2,}/g, " ");
+
+//     // const lines = text.split("\n");
+//     // const chunks = lines.map((line) => line.trim()).filter(Boolean);
+
+//     // results = chunks.join("\n");
+//   } catch (error) {
+//     results = `Error: ${error}`;
+//   }
+
+//   await browser.close();
+
+//   return results;
+// };
+
+// textContent
 const asyncLoadPuppeteer = async (url) => {
   let results = "";
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch({ headless: "new" });
 
   try {
     const page = await browser.newPage();
@@ -14,17 +53,26 @@ const asyncLoadPuppeteer = async (url) => {
       document
         .querySelectorAll("script, style, noscript")
         .forEach((el) => el.remove());
+
+      document
+        .querySelectorAll("*")
+        .forEach((el) => el.removeAttribute("style"));
+
+      // Remove elements with "nav" in their class name
+      document.querySelectorAll('[class*="nav"]').forEach((el) => el.remove());
     });
 
     // Extract text content
-    const price = await page.evaluate(() => document.querySelector("#price"));
+    results = await page.evaluate(() => document.body.textContent);
 
-    console.log(price);
+    results = results.replace(/\s*\n\s*/g, "\n").replace(/ {2,}/g, " ");
 
-    // const lines = text.split("\n");
-    // const chunks = lines.map((line) => line.trim()).filter(Boolean);
+    results = results.split("\n");
+    results = results.map((line) => line.trim()).filter(Boolean);
 
-    // results = chunks.join("\n");
+    results = results.join("\n");
+
+    // results = results.slice(0, 5000);
   } catch (error) {
     results = `Error: ${error}`;
   }
@@ -46,7 +94,7 @@ const getProductDetail = async (req, res) => {
 
   const content = await asyncLoadPuppeteer(req.body.url);
 
-  // console.log(content.length);
+  console.log(content.length);
 
   res.status(200).json({ success: true, data: content });
 };
