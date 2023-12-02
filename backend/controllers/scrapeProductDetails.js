@@ -51,7 +51,7 @@ const asyncLoadPuppeteer = async (url) => {
     // Remove script, style, and noscript elements directly using Puppeteer
     await page.evaluate(() => {
       document
-        .querySelectorAll("script, style, noscript")
+        .querySelectorAll("script, style, noscript, nav")
         .forEach((el) => el.remove());
 
       document
@@ -67,12 +67,7 @@ const asyncLoadPuppeteer = async (url) => {
 
     results = results.replace(/\s*\n\s*/g, "\n").replace(/ {2,}/g, " ");
 
-    results = results.split("\n");
-    results = results.map((line) => line.trim()).filter(Boolean);
-
-    results = results.join("\n");
-
-    // results = results.slice(0, 5000);
+    results = results.slice(0, 10000);
   } catch (error) {
     results = `Error: ${error}`;
   }
@@ -83,20 +78,55 @@ const asyncLoadPuppeteer = async (url) => {
 };
 
 const getProductDetail = async (req, res) => {
-  // const openai = new OpenAI({
-  //   apiKey: `${process.env.OPENAI_API_KEY}`,
-  // });
-  // const completion = await openai.chat.completions.create({
-  //   messages: [{ role: "system", content: "You are a helpful assistant." }],
-  //   model: "gpt-3.5-turbo",
-  // });
-  // res.status(200).json({ success: true, data: completion.choices[0] });
+  const openai = new OpenAI({
+    apiKey: `${process.env.OPENAI_API_KEY}`,
+  });
 
   const content = await asyncLoadPuppeteer(req.body.url);
 
-  console.log(content.length);
+  const completion = await openai.chat.completions.create({
+    model: "gpt-3.5-turbo",
+    temperature: 0,
+    messages: [
+      {
+        role: "system",
+        content: `Given the following text content from a product detail page. I would like to get the product detail. Give me the title, description, and the price of the product\n${content}`,
+      },
+    ],
+    functions: [
+      {
+        name: "ProductDetail",
+        description: "gets the product detail",
+        parameters: {
+          type: "object",
+          properties: {
+            title: {
+              type: "string",
+              description: "the title of the product",
+            },
+            description: {
+              type: "string",
+              description: "the description of the product",
+            },
+            price: {
+              type: "string",
+              description: "the price of the product",
+            },
+          },
+          required: ["title", "description", "price"],
+        },
+      },
+    ],
+    function_call: "auto",
+  });
 
-  res.status(200).json({ success: true, data: content });
+  const completionArguments = JSON.parse(
+    completion.choices[0].message.function_call.arguments
+  );
+
+  const { title, description, price } = completionArguments;
+
+  res.status(200).json({ success: true, data: { title, description, price } });
 };
 
 /*
