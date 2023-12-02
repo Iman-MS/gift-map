@@ -1,10 +1,13 @@
 import OpenAI from "openai";
 import puppeteer from "puppeteer";
+import { ChatOpenAI } from "langchain/chat_models/openai";
+import { createExtractionChain } from "langchain/chains";
+// import { ChatPromptTemplate } from "langchain/prompts";
 
-// innerHTML
+// // innerHTML
 // const asyncLoadPuppeteer = async (url) => {
 //   let results = "";
-//   const browser = await puppeteer.launch({ headless: true });
+//   const browser = await puppeteer.launch({ headless: "new" });
 
 //   try {
 //     const page = await browser.newPage();
@@ -13,18 +16,26 @@ import puppeteer from "puppeteer";
 //     // Remove script, style, and noscript elements directly using Puppeteer
 //     await page.evaluate(() => {
 //       document
-//         .querySelectorAll("script, style, noscript")
+//         .querySelectorAll(
+//           "script, style, noscript, nav, select, a, ol, ul, table"
+//         )
 //         .forEach((el) => el.remove());
 
 //       document
 //         .querySelectorAll("*")
 //         .forEach((el) => el.removeAttribute("style"));
+
+//       // Remove elements with "nav" in their class name
+//       document.querySelectorAll('[class*="nav"]').forEach((el) => el.remove());
+
+//       // Remove elements with "nav" in their id name
+//       document.querySelectorAll('[id*="nav"]').forEach((el) => el.remove());
 //     });
 
 //     // Extract HTML
-//     results = await page.evaluate(() => document.body.textContent);
+//     results = await page.evaluate(() => document.body.innerHTML);
 
-//     results = results.replace(/\n+/g, "\n").replace(/ {2,}/g, " ");
+//     results = results.replace(/\s*\n\s*/g, "\n").replace(/ {2,}/g, " ");
 
 //     // const lines = text.split("\n");
 //     // const chunks = lines.map((line) => line.trim()).filter(Boolean);
@@ -51,7 +62,9 @@ const asyncLoadPuppeteer = async (url) => {
     // Remove script, style, and noscript elements directly using Puppeteer
     await page.evaluate(() => {
       document
-        .querySelectorAll("script, style, noscript, nav")
+        .querySelectorAll(
+          "script, style, noscript, nav, select, a, ol, ul, table"
+        )
         .forEach((el) => el.remove());
 
       document
@@ -60,14 +73,22 @@ const asyncLoadPuppeteer = async (url) => {
 
       // Remove elements with "nav" in their class name
       document.querySelectorAll('[class*="nav"]').forEach((el) => el.remove());
+
+      // Remove elements with "nav" in their id name
+      document.querySelectorAll('[id*="nav"]').forEach((el) => el.remove());
     });
 
     // Extract text content
-    results = await page.evaluate(() => document.body.textContent);
+    results = await page.evaluate(() => {
+      const bodyContent = document.body.textContent;
+
+      const images = Array.from(document.querySelectorAll("img"));
+      const imgSrcArray = images.map((img) => img.src);
+
+      return `${imgSrcArray.join("\n")}\n${bodyContent}`;
+    });
 
     results = results.replace(/\s*\n\s*/g, "\n").replace(/ {2,}/g, " ");
-
-    results = results.slice(0, 10000);
   } catch (error) {
     results = `Error: ${error}`;
   }
@@ -90,7 +111,10 @@ const getProductDetail = async (req, res) => {
     messages: [
       {
         role: "system",
-        content: `Given the following text content from a product detail page. I would like to get the product detail. Give me the title, description, and the price of the product\n${content}`,
+        content: `Given the following text content from a product detail page. I would like to get the product detail. Give me the title, description of the product, the price of the product, and an image link of the product\n${content.slice(
+          0,
+          10000
+        )}`,
       },
     ],
     functions: [
@@ -112,6 +136,10 @@ const getProductDetail = async (req, res) => {
               type: "string",
               description: "the price of the product",
             },
+            imageLink: {
+              type: "string",
+              description: "an image link of the product",
+            },
           },
           required: ["title", "description", "price"],
         },
@@ -124,9 +152,11 @@ const getProductDetail = async (req, res) => {
     completion.choices[0].message.function_call.arguments
   );
 
-  const { title, description, price } = completionArguments;
+  const { title, description, price, imageLink } = completionArguments;
 
-  res.status(200).json({ success: true, data: { title, description, price } });
+  res
+    .status(200)
+    .json({ success: true, data: { title, description, price, imageLink } });
 };
 
 /*
