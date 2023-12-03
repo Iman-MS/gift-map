@@ -111,7 +111,7 @@ const getProductDetail = async (req, res) => {
     messages: [
       {
         role: "system",
-        content: `Given the following text content from a product detail page. I would like to get the product detail. Give me the title, description of the product, the price of the product, and an image link of the product\n${content.slice(
+        content: `Given the following text content from a product detail page. I would like to get the product detail. Give me the title, description of the product, the price of the product, and the main image link of the product\n${content.slice(
           0,
           10000
         )}`,
