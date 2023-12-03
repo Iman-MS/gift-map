@@ -57,6 +57,22 @@ const GiftForm = ({
   const autoCompleteHandler = async () => {
     setIsLoading(true);
 
+    try {
+      const response = await fetch(
+        `/api/v1/scrape-product-details?url=${link}`
+      );
+      const responseData = await response.json();
+
+      console.log(responseData);
+
+      setTitle(responseData.data.title);
+      setDescription(responseData.data.description);
+      setPrice(responseData.data.price);
+      setImageLink(responseData.data.imageLink);
+    } catch (err) {
+      console.log(err);
+    }
+
     setIsLoading(false);
   };
 

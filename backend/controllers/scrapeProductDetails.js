@@ -103,7 +103,7 @@ const getProductDetail = async (req, res) => {
     apiKey: `${process.env.OPENAI_API_KEY}`,
   });
 
-  const content = await asyncLoadPuppeteer(req.body.url);
+  const content = await asyncLoadPuppeteer(req.query.url);
 
   const completion = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
@@ -133,7 +133,7 @@ const getProductDetail = async (req, res) => {
               description: "the description of the product",
             },
             price: {
-              type: "string",
+              type: "number",
               description: "the price of the product",
             },
             imageLink: {
