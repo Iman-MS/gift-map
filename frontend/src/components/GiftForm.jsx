@@ -36,6 +36,7 @@ const GiftForm = ({
   const [imageLink, setImageLink] = useState(imageLinkInitialValue || "");
 
   const [isError, setIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const titleChangeHandler = (event) => {
@@ -63,14 +64,16 @@ const GiftForm = ({
       );
       const responseData = await response.json();
 
-      console.log(responseData);
+      if (!responseData.success)
+        throw new Error("Auto complete wasn't successful, please try again");
 
       setTitle(responseData.data.title);
       setDescription(responseData.data.description);
       setPrice(responseData.data.price);
       setImageLink(responseData.data.imageLink);
     } catch (err) {
-      console.log(err);
+      setErrorMessage(<>{err.message}</>);
+      setIsError(true);
     }
 
     setIsLoading(false);
@@ -86,6 +89,12 @@ const GiftForm = ({
       !linkRegex.test(link) ||
       (imageLink && !linkRegex.test(imageLink))
     ) {
+      setErrorMessage(
+        <>
+          - Please enter a number for the price <br /> - Please enter a valid
+          link for the link and image link
+        </>
+      );
       setIsError(true);
       setIsLoading(false);
       return;
@@ -231,10 +240,8 @@ const GiftForm = ({
                     variant="outlined"
                     style={{ backgroundColor: "#ff000012" }}
                   >
-                    <AlertTitle>Error</AlertTitle>- Please enter a number for
-                    the price
-                    <br /> - Please enter a valid link for the link and image
-                    link
+                    <AlertTitle>Error</AlertTitle>
+                    {errorMessage}
                   </Alert>
                 </Grid>
               )}

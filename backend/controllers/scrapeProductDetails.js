@@ -148,15 +148,19 @@ const getProductDetail = async (req, res) => {
     function_call: "auto",
   });
 
-  const completionArguments = JSON.parse(
-    completion.choices[0].message.function_call.arguments
-  );
+  if (completion.choices[0].message.function_call) {
+    const completionArguments = JSON.parse(
+      completion.choices[0].message.function_call.arguments
+    );
 
-  const { title, description, price, imageLink } = completionArguments;
+    const { title, description, price, imageLink } = completionArguments;
 
-  res
-    .status(200)
-    .json({ success: true, data: { title, description, price, imageLink } });
+    res
+      .status(200)
+      .json({ success: true, data: { title, description, price, imageLink } });
+  } else {
+    res.status(502).json({ success: false });
+  }
 };
 
 /*
