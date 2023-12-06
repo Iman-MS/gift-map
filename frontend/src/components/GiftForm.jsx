@@ -58,6 +58,13 @@ const GiftForm = ({
   const autoCompleteHandler = async () => {
     setIsLoading(true);
 
+    if (!linkRegex.test(link)) {
+      setErrorMessage(<>Please enter a valid link</>);
+      setIsError(true);
+      setIsLoading(false);
+      return;
+    }
+
     try {
       const response = await fetch(
         `/api/v1/scrape-product-details?url=${link}`
@@ -147,6 +154,28 @@ const GiftForm = ({
               {`${giftID ? "Edit" : "New"} Gift`}
             </Typography>
             <form onSubmit={formSubmitHandler}>
+              <div className={classes["auto-complete-container"]}>
+                <TextField
+                  onChange={linkChangeHandler}
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="link"
+                  label="Link"
+                  type="link"
+                  id="link"
+                  autoFocus
+                  value={link}
+                />
+                <Button
+                  variant="contained"
+                  size="small"
+                  onClick={autoCompleteHandler}
+                >
+                  Auto Complete
+                </Button>
+              </div>
               <TextField
                 onChange={titleChangeHandler}
                 variant="outlined"
@@ -156,7 +185,6 @@ const GiftForm = ({
                 id="title"
                 label="Title"
                 name="title"
-                autoFocus
                 value={title}
               />
               <TextField
@@ -182,27 +210,7 @@ const GiftForm = ({
                 id="price"
                 value={price}
               />
-              <div className={classes["auto-complete-container"]}>
-                <TextField
-                  onChange={linkChangeHandler}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="link"
-                  label="Link"
-                  type="link"
-                  id="link"
-                  value={link}
-                />
-                <Button
-                  variant="contained"
-                  size="small"
-                  onClick={autoCompleteHandler}
-                >
-                  Auto Complete
-                </Button>
-              </div>
+
               <TextField
                 onChange={imageLinkChangeHandler}
                 variant="outlined"

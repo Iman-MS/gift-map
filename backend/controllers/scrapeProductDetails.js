@@ -1,8 +1,8 @@
 import OpenAI from "openai";
 import puppeteer from "puppeteer";
 import { ChatOpenAI } from "langchain/chat_models/openai";
-import { createExtractionChain } from "langchain/chains";
-// import { ChatPromptTemplate } from "langchain/prompts";
+import { HumanMessage } from "langchain/schema";
+import { SerpAPI } from "langchain/tools";
 
 // // innerHTML
 // const asyncLoadPuppeteer = async (url) => {
@@ -76,6 +76,42 @@ const asyncLoadPuppeteer = async (url) => {
 
       // Remove elements with "nav" in their id name
       document.querySelectorAll('[id*="nav"]').forEach((el) => el.remove());
+
+      // Remove elements with "button" in their class name
+      document
+        .querySelectorAll('[class*="button"]')
+        .forEach((el) => el.remove());
+
+      // Remove elements with "button" in their id name
+      document.querySelectorAll('[id*="button"]').forEach((el) => el.remove());
+
+      // Remove elements with "review" in their class name
+      document
+        .querySelectorAll('[class*="review"]')
+        .forEach((el) => el.remove());
+
+      // Remove elements with "review" in their id name
+      document.querySelectorAll('[id*="review"]').forEach((el) => el.remove());
+
+      // Remove elements with "warranty" in their class name
+      document
+        .querySelectorAll('[class*="warranty"]')
+        .forEach((el) => el.remove());
+
+      // Remove elements with "warranty" in their id name
+      document
+        .querySelectorAll('[id*="warranty"]')
+        .forEach((el) => el.remove());
+
+      // Remove elements with "guarantee" in their class name
+      document
+        .querySelectorAll('[class*="guarantee"]')
+        .forEach((el) => el.remove());
+
+      // Remove elements with "guarantee" in their id name
+      document
+        .querySelectorAll('[id*="guarantee"]')
+        .forEach((el) => el.remove());
     });
 
     // Extract text content
@@ -83,7 +119,9 @@ const asyncLoadPuppeteer = async (url) => {
       const bodyContent = document.body.textContent;
 
       const images = Array.from(document.querySelectorAll("img"));
-      const imgSrcArray = images.map((img) => img.src);
+      const imgSrcArray = images.map((img) =>
+        img.alt ? `(${images.alt + img.src})` : null
+      );
 
       return `${imgSrcArray.join("\n")}\n${bodyContent}`;
     });
@@ -98,6 +136,7 @@ const asyncLoadPuppeteer = async (url) => {
   return results;
 };
 
+// getting product detail using openai functions
 const getProductDetail = async (req, res) => {
   const openai = new OpenAI({
     apiKey: `${process.env.OPENAI_API_KEY}`,
@@ -110,108 +149,133 @@ const getProductDetail = async (req, res) => {
     temperature: 0,
     messages: [
       {
-        role: "system",
-        content: `Given the following text content from a product detail page. I would like to get the product detail. Give me the title, description of the product, the price of the product, and the main image link of the product\n${content.slice(
+        role: "user",
+        content: `Given the following text content from a product detail page. I would like to get the product detail. Give me the title, description of the product, the price of the product, and the main image link of the product itself\n${content.slice(
           0,
           10000
         )}`,
       },
     ],
-    functions: [
+    tools: [
       {
-        name: "ProductDetail",
-        description: "gets the product detail",
-        parameters: {
-          type: "object",
-          properties: {
-            title: {
-              type: "string",
-              description: "the title of the product",
+        type: "function",
+        function: {
+          name: "get_product_detail",
+          description: "gets the product detail",
+          parameters: {
+            type: "object",
+            properties: {
+              title: {
+                type: "string",
+                description: "the title of the product",
+              },
+              description: {
+                type: "string",
+                description: "the description of the product",
+              },
+              price: {
+                type: "number",
+                description: "the price of the product",
+              },
+              productImageLink: {
+                type: "string",
+                description: "the main image link of the product itself",
+              },
             },
-            description: {
-              type: "string",
-              description: "the description of the product",
-            },
-            price: {
-              type: "number",
-              description: "the price of the product",
-            },
-            imageLink: {
-              type: "string",
-              description: "an image link of the product",
-            },
+            required: ["title", "description", "price", "productImageLink"],
           },
-          required: ["title", "description", "price"],
         },
       },
     ],
-    function_call: "auto",
+    tool_choice: "auto",
   });
 
-  if (completion.choices[0].message.function_call) {
+  if (completion.choices[0].message.tool_calls[0]?.function?.arguments) {
     const completionArguments = JSON.parse(
-      completion.choices[0].message.function_call.arguments
+      completion.choices[0].message.tool_calls[0].function.arguments
     );
 
-    const { title, description, price, imageLink } = completionArguments;
+    console.log(completion.choices[0].message.tool_calls[0].function.arguments);
 
-    res
-      .status(200)
-      .json({ success: true, data: { title, description, price, imageLink } });
+    const { title, description, price, productImageLink } = completionArguments;
+
+    res.status(200).json({
+      success: true,
+      data: { title, description, price, imageLink: productImageLink },
+    });
   } else {
     res.status(502).json({ success: false });
   }
 };
 
-/*
- const browser = await puppeteer.launch({
-    headless: true,
-    defaultViewport: null,
-  });
-  // Open a new page
-  const page = await browser.newPage();
+// // getting product detail using langchain
+// const getProductDetail = async (req, res) => {
+//   const content = await asyncLoadPuppeteer(req.query.url);
 
-  // Enable request interception
-  await page.setRequestInterception(true);
+//   const modelForFunctionCalling = new ChatOpenAI({
+//     modelName: "gpt-3.5-turbo",
+//     temperature: 0,
+//   });
 
-  // Intercept requests and decide whether to allow or block them
-  page.on("request", (request) => {
-    const resourceType = request.resourceType();
+//   const response = await modelForFunctionCalling.predictMessages(
+//     [
+//       new HumanMessage(
+//         `Given the following text content from a product detail page. I would like to get the product detail. Give me the title, description of the product, the price of the product, and the main image link of the product\n${content.slice(
+//           0,
+//           10000
+//         )}`
+//       ),
+//     ],
+//     {
+//       functions: [
+//         {
+//           name: "get_product_detail",
+//           description: "gets the product detail",
+//           parameters: {
+//             type: "object",
+//             properties: {
+//               title: {
+//                 type: "string",
+//                 description: "the title of the product",
+//               },
+//               description: {
+//                 type: "string",
+//                 description: "the description of the product",
+//               },
+//               price: {
+//                 type: "number",
+//                 description: "the price of the product",
+//               },
+//               productImageLink: {
+//                 type: "string",
+//                 description: "an image link of the product",
+//               },
+//             },
+//             required: ["title", "description", "price", "productImageLink"],
+//           },
+//         },
+//       ],
+//       // You can set the `function_call` arg to force the model to use a function
+//       function_call: {
+//         name: "get_product_detail",
+//       },
+//     }
+//   );
 
-    if (resourceType === "document") {
-      // Allow only document requests
-      request.continue();
-    } else {
-      // Block all other requests
-      request.abort();
-    }
-  });
+//   if (response.additional_kwargs?.function_call?.arguments) {
+//     const completionArguments = JSON.parse(
+//       response.additional_kwargs.function_call.arguments
+//     );
 
-  // On this new page:
-  // - wait until the dom content is loaded (HTML is ready)
-  await page.goto(
-    "https://www.amazon.ca/amazon-fire-tv-55-inch-4-series-4k-smart-tv/dp/B08T6H1RQD?ref_=Oct_DLandingS_D_315af6be_1",
-    {
-      waitUntil: "domcontentloaded",
-    }
-  );
+//     const { title, description, price, productImageLink } = completionArguments;
 
-  await page.evaluate(() => {
-    document
-      .querySelectorAll("script, style, noscript")
-      .forEach((el) => el.remove());
-  });
-
-  // Extract HTML structure and text content from the entire body
-  const extractedData = await page.evaluate(() => {
-    return {
-      html: document.body.innerHTML,
-      text: document.body.innerText,
-    };
-  });
-
-  // Close the browser
-  await browser.close();
-*/
+//     res.status(200).json({
+//       success: true,
+//       data: { title, description, price, imageLink: productImageLink },
+//     });
+//   } else {
+//     res.status(502).json({ success: false });
+//   }
+// };
 
 export default getProductDetail;
