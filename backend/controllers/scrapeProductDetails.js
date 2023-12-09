@@ -53,7 +53,10 @@ import { SerpAPI } from "langchain/tools";
 // textContent
 const asyncLoadPuppeteer = async (url) => {
   let results = "";
-  const browser = await puppeteer.launch({ headless: "new" });
+  const browser = await puppeteer.launch({
+    headless: "new",
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+  });
 
   try {
     const page = await browser.newPage();

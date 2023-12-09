@@ -32,6 +32,7 @@
     "xss-clean": "^0.1.4"
   },
   "devDependencies": {
+    "@flydotio/dockerfile": "^0.4.11",
     "nodemon": "^2.0.22"
   }
 }
